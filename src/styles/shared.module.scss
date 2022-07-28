@@ -1,1 +1,15 @@
 @import "./breakpoints.module";
+
+.button {
+  padding: 12px 30px;
+  background-color: var(--color-action);
+  color: var(--color-dark);
+  border: none;
+  border-radius:50px;
+  transition-duration: 0.4s;
+}
+
+.button:hover {
+  background-color: var(--color-secondary);
+  color: var(--color-dark);
+}

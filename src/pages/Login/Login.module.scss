@@ -1,0 +1,18 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: auto;
+  box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  background-color: var(--color-primary);
+  padding: 40px;
+  width: 25%;
+}
+
+.input {
+  border: 1px solid var(--color-light);
+  background-color: var(--color-light);
+  border-radius: 5px;
+  padding: 12px
+}
