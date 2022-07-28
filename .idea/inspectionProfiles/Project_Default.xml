@@ -1,0 +1,31 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="Eslint" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="1">
+            <item index="0" class="java.lang.String" itemvalue="setuptools_scm" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="bagpoint.finance.api.views.channels.DatabaseError" />
+          <option value="bagpoint.finance.api.views.channels.merge" />
+          <option value="roulette.api.tests.test_table.APITestCase" />
+          <option value="roulette.api.tests.test_table.Table" />
+          <option value="bagpoint.notification.subscriber.settings.BASE_DIR" />
+          <option value="bagpoint.notification.subscriber.messagequeue.consumers.UserRegisterConsumer.os" />
+          <option value="bagpoint.notification.subscriber.tests.messagequeue.test_user_register_email.CREATED" />
+          <option value="bagpoint.finance.api.views.serializers.channels.bookings.AssignmentDetailSerializer" />
+          <option value="bagpoint.finance.api.views.channel.ChannelPropertyNotFound" />
+          <option value="bagpoint.finance.api.tests.views.channels.test_channels_bookings_views.Assingment" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
