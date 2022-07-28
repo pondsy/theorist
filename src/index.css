@@ -28,12 +28,12 @@ body {
 }
 
 :root {
-  --color-primary: #9b9b7a;
-  --color-secondary: #d08c60;
-  --color-action: #797d62;
-  --color-light: #FDF4DC;
-  --color-dark: #4f3130;
-  --header-height: 50px;
-  --linear-left: #440a46;
-  --linear-right: #683B6A
+  --color-primary: #B7C8C2;
+  --color-secondary: #ECA4B1;
+  --color-light: #E9DAC4;
+  --color-action: #CFB2B0;
+  --color-dark: #351c35;
+  --color-background: #FFF;
+  --linear-left: #351c35;
+  --linear-right: #683B6A;
 }

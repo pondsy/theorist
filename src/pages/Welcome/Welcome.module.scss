@@ -3,17 +3,3 @@
   justify-content: space-around;
   align-items: center;
 }
-
-.button {
-  padding: 12px 30px;
-  background-color: var(--color-action);
-  color: #fff;
-  border: none;
-  border-radius:50px;
-  transition-duration: 0.4s;
-}
-
-.button:hover {
-  background-color: var(--color-primary); /* Green */
-  color: white;
-}
