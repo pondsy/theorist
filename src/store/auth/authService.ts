@@ -3,8 +3,8 @@ import {Firebase} from "../../firebase/service";
 
 class AuthService {
 
-    static async login(email: string, password: string): Promise<firebase.auth.UserCredential | undefined> {
-        return Firebase.login(email, password)
+    static async login(email: string, password: string, role: string): Promise<firebase.auth.UserCredential | undefined> {
+        return await Firebase.login(email, password, role);
     }
 
     static logout(): Promise<void> {

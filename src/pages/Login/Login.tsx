@@ -16,7 +16,7 @@ const Login = () => {
 
     const submitLogin = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
-        AuthService.login(form.email, form.password).then((response) => {
+        AuthService.login(form.email, form.password, role).then((response) => {
             if (response) {
                 dispatch(setAuth(response));
                 navigate(`/dashboard`, {state: {role}})
