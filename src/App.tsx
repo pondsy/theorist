@@ -12,9 +12,9 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Welcome/>}/>
-                    <Route path="/login/*" element={<Login/>}/>
+                    <Route path="/login" element={<Login/>}/>
                     <Route path='/' element={<PrivateRoute/>}>
-                        <Route path='/dashboard/*' element={<Dashboard/>}/>
+                        <Route path='/dashboard' element={<Dashboard/>}/>
                     </Route>
                 </Routes>
             </BrowserRouter>
