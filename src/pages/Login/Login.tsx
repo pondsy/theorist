@@ -3,8 +3,8 @@ import styles from './Login.module.scss';
 import sharedStyles from '../../styles/shared.module.scss';
 import {useLocation, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {Firebase} from "../../firebase/service";
 import {setAuth} from "../../store/auth/authActions";
+import AuthService from "../../store/auth/authService";
 
 const Login = () => {
 
@@ -16,9 +16,9 @@ const Login = () => {
 
     const submitLogin = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
-        Firebase.login(form.email, form.password).then((response) => {
-            if (response.user) {
-                dispatch(setAuth(response.user));
+        AuthService.login(form.email, form.password).then((response) => {
+            if (response) {
+                dispatch(setAuth(response));
                 navigate(`/dashboard/${role}`)
             }
         })
