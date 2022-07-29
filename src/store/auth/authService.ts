@@ -10,6 +10,10 @@ class AuthService {
     static logout(): Promise<void> {
         return Firebase.logout();
     };
+
+    static isLoggedIn(): firebase.User|undefined {
+        return Firebase.isLoggedIn();
+    }
 }
 
 export default AuthService;

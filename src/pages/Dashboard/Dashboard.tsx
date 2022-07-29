@@ -1,4 +1,6 @@
 import {useLocation} from "react-router-dom";
+import PractitionerDashboard from "./Practitioner";
+import ClientDashboard from "./Client";
 
 const Dashboard = () => {
 
@@ -6,7 +8,7 @@ const Dashboard = () => {
     const role = (state as {role: string}).role;
 
     return (
-        <div>{`logged in as ${role}!`}</div>
+        <div>{role && 'practitioner' ? <PractitionerDashboard/> : <ClientDashboard/>}</div>
     )
 }
 

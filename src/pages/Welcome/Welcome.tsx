@@ -1,6 +1,6 @@
 import styles from './Welcome.module.scss';
 import sharedStyles from '../../styles/shared.module.scss';
-import Logo from "../../components/Logo";
+import {ReactComponent as Circle} from "../../resources/svgs/circle.svg";
 import {useNavigate} from "react-router-dom";
 
 const Welcome = () => {
@@ -9,12 +9,12 @@ const Welcome = () => {
 
     return (
         <div>
-            <Logo/>
+            <Circle className={styles.logo}/>
             <h1>THEORIST</h1>
             <h5>It's okay to not be okay</h5>
             <div className={styles.buttonContainer}>
                 <button className={sharedStyles.button} onClick={() => navigate("login", {state: {role: 'practitioner'}})}>Practitioner</button>
-                <button className={sharedStyles.button} onClick={() => navigate("login", {state: {role: 'patient'}})}>Patient</button>
+                <button className={sharedStyles.button} onClick={() => navigate("login", {state: {role: 'client'}})}>Client</button>
             </div>
         </div>
     )

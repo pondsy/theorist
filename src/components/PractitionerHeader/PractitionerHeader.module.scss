@@ -1,0 +1,41 @@
+@mixin logo {
+  fill: var(--color-light);
+}
+.companyLogo {
+  @include logo;
+  width: 50px;
+}
+
+.addLogo {
+  @include logo;
+  width: 20px;
+}
+
+.header {
+  padding: 0 10px;
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: space-between;
+  top: 0;
+  left: 0;
+  height: 70px;
+  width: 100%;
+}
+
+.title {
+  display: flex;
+  gap: 15px;
+  cursor: default;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+
+  > div {
+      cursor: pointer;
+  }
+}
