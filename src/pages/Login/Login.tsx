@@ -1,25 +1,25 @@
 import React, {useState} from "react";
 import styles from './Login.module.scss';
 import sharedStyles from '../../styles/shared.module.scss';
-import {useLocation, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {setAuth} from "../../store/auth/authActions";
 import AuthService from "../../store/auth/authService";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const Login = () => {
 
-    const location = useLocation();
+    const {state} = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [form, setForm] = useState<{ email: string, password: string}>({email: '', password: ''});
-    const role = location.pathname.split('/')[location.pathname.split('/').length - 1];
+    const role = (state as {role: string}).role;
 
     const submitLogin = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
         AuthService.login(form.email, form.password).then((response) => {
             if (response) {
                 dispatch(setAuth(response));
-                navigate(`/dashboard/${role}`)
+                navigate(`/dashboard`, {state: {role}})
             }
         })
     }

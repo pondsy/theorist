@@ -13,8 +13,8 @@ const Welcome = () => {
             <h1>THEORIST</h1>
             <h5>It's okay to not be okay</h5>
             <div className={styles.buttonContainer}>
-                <button className={sharedStyles.button} onClick={() => navigate("login/practitioner")}>Practitioner</button>
-                <button className={sharedStyles.button} onClick={() => navigate("login/patient")}>Patient</button>
+                <button className={sharedStyles.button} onClick={() => navigate("login", {state: {role: 'practitioner'}})}>Practitioner</button>
+                <button className={sharedStyles.button} onClick={() => navigate("login", {state: {role: 'patient'}})}>Patient</button>
             </div>
         </div>
     )
