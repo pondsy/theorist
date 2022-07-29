@@ -1,5 +1,5 @@
 import {createReducer, Reducer} from "@reduxjs/toolkit";
-import {REMOVE_AUTH, SET_AUTH,} from "./authConstants";
+import {SET_AUTH, REMOVE_AUTH} from "./authConstants";
 import {AuthState} from "./authTypes";
 
 const initialState: AuthState = {
@@ -13,7 +13,7 @@ const auth: Reducer<AuthState> = createReducer(initialState, {
       user: action.payload
     }
   },
-  [REMOVE_AUTH]: (state, action) => {
+  [REMOVE_AUTH]: (state) => {
     return {
       ...state,
       user: undefined
