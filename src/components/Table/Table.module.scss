@@ -1,0 +1,42 @@
+.container {
+  overflow: scroll;
+}
+
+table {
+  border: 1px solid lightgray;
+  width: 100%;
+  background: var(--color-primary);
+  border-radius: 10px;
+}
+
+tbody {
+  border-bottom: 1px solid lightgray;
+}
+
+th {
+  border-bottom: 1px solid lightgray;
+  border-right: 1px solid lightgray;
+  padding: 12px;
+  font-size: 1.2em;
+  text-align: left;
+  background: #becdc8;
+}
+
+tr {
+  &:nth-child(2n) {
+    background: #becdc8;
+  }
+}
+
+td {
+  padding: 20px 12px;
+
+}
+
+tfoot {
+  color: gray;
+}
+
+tfoot th {
+  font-weight: normal;
+}

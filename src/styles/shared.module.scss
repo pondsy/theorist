@@ -1,15 +1,20 @@
 @import "./breakpoints.module";
 
-.button {
-  padding: 12px 30px;
-  background-color: var(--color-action);
-  color: var(--color-dark);
-  border: none;
-  border-radius:50px;
-  transition-duration: 0.4s;
+.inputWithButtons {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
 }
 
-.button:hover {
-  background-color: var(--color-secondary);
-  color: var(--color-dark);
+.inlineIconButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  > svg {
+    height: 20px;
+    fill: var(--color-dark);
+    cursor: pointer;
+  }
 }

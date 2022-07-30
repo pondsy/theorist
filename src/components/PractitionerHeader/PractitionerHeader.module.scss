@@ -12,7 +12,7 @@
 }
 
 .header {
-  padding: 0 10px;
+  padding: 0 30px;
   display: flex;
   position: fixed;
   align-items: center;
@@ -21,12 +21,14 @@
   left: 0;
   height: 70px;
   width: 100%;
+  color: var(--color-light);
 }
 
 .title {
   display: flex;
   gap: 15px;
   cursor: default;
+  align-items: center;
 }
 
 .links {
@@ -38,4 +40,8 @@
   > div {
       cursor: pointer;
   }
+}
+
+.active {
+  color: var(--color-secondary);
 }

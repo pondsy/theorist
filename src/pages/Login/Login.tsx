@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import styles from './Login.module.scss';
-import sharedStyles from '../../styles/shared.module.scss';
 import {useDispatch} from "react-redux";
 import {setAuth} from "../../store/auth/authActions";
 import AuthService from "../../store/auth/authService";
 import {useLocation, useNavigate} from "react-router-dom";
+import Button from "../../components/Button";
 
 const Login = () => {
 
@@ -25,12 +25,14 @@ const Login = () => {
     }
 
     return (
-        <form className={styles.form}>
-            <h1>{`Login as ${role}`}</h1>
-            <input className={styles.input} type="text" onChange={(e) => setForm((prev) => ({...prev, email: e.target.value}))}/>
-            <input className={styles.input} type="password" onChange={(e) => setForm((prev) => ({...prev, password: e.target.value}))}/>
-            <button className={sharedStyles.button} onClick={(e) => submitLogin(e)} type="submit">Submit</button>
-        </form>
+        <div className={styles.page}>
+            <form className={styles.form}>
+                <h1>{`Login as ${role}`}</h1>
+                <input className={styles.input} type="text" onChange={(e) => setForm((prev) => ({...prev, email: e.target.value}))}/>
+                <input className={styles.input} type="password" onChange={(e) => setForm((prev) => ({...prev, password: e.target.value}))}/>
+                <Button text="Submit" onClick={(e) => submitLogin(e)}/>
+            </form>
+        </div>
     )
 }
 

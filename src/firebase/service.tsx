@@ -1,8 +1,9 @@
 import {auth, db} from "./init";
 import firebase from "firebase/compat/app";
+import {Questionnaire} from "../components/Questionnaires/Questionnaires";
 
 export class Firebase {
-    public static login = async (email: string, password: string, role: string): Promise<firebase.auth.UserCredential|undefined> => {
+    public static login = async (email: string, password: string, role: string): Promise<firebase.User|undefined> => {
         const login = await auth.signInWithEmailAndPassword(email, password);
         const user = await firebase.auth().currentUser;
         if (!user) {
@@ -21,7 +22,7 @@ export class Firebase {
 
         localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem('role', role);
-        return login;
+        return user;
     };
 
     public static logout = async (error?: string) => {
@@ -33,9 +34,50 @@ export class Firebase {
     public static isLoggedIn = (): firebase.User|undefined => {
         const localUser = localStorage.getItem('user');
         return localUser ? JSON.parse(localUser) : firebase.auth().currentUser || undefined;
-    }
+    };
+
+    public static getQuestionnaires = async (uid: string): Promise<any> => {
+        let data: any[] = [];
+
+        await db.collection("questionnaires").where("practitioner", "==", uid).get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    data = data.concat({id: doc.id, ...doc.data()})
+                });
+        })
+
+        return data;
+    };
+
+    public static saveQuestionnaire = async (questionnaire: Questionnaire): Promise<Questionnaire[]> => {
+        if (!questionnaire.practitioner) throw new Error('missing practitioner uid!');
+        const uid = questionnaire.practitioner;
+
+        if (questionnaire.id) {
+            return await db.collection("questionnaires").doc(questionnaire.id).set(questionnaire)
+                .then(() => {
+                    return this.getQuestionnaires(uid)
+                })
+        }
+        return await db.collection("questionnaires").doc().set(questionnaire)
+            .then(() => {
+                return this.getQuestionnaires(uid)
+            })
+    };
+
+    public static deleteQuestionnaire = async (questionnaire: Questionnaire): Promise<Questionnaire[]> => {
+        if (!questionnaire.practitioner) throw new Error('missing practitioner uid!');
+        if (!questionnaire.id) throw new Error('Questionnaire is not saved!');
+
+        const uid = questionnaire.practitioner;
+        const id = questionnaire.id;
+
+        return await db.collection('questionnaires').doc(id).get()
+            .then(function(querySnapshot) {querySnapshot.ref.delete()})
+            .then(() => this.getQuestionnaires(uid));
+    };
 
     private static getUser = async (uid: string): Promise<any> => {
         return await db.collection("users").doc(uid).get().then((querySnapshot) => querySnapshot.data());
-    }
+    };
 }

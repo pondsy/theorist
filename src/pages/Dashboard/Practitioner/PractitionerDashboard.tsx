@@ -16,7 +16,7 @@ const PractitionerDashboard = () => {
 
     return (
         <div className={styles.page}>
-            <PractitionerHeader setActive={setActive}/>
+            <PractitionerHeader setActivePage={setActive}/>
             {Object.keys(components).map((item: string, index: number) => {
                 const Component = components[item];
                 if (active === item) return <Component key={index}/>

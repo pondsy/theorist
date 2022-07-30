@@ -5,6 +5,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import storage from 'redux-persist/lib/storage';
 import auth from "./auth/authReducer";
+import practitioner from './practitioner/practitionerReducer';
 
 const persistConfig = {
     key: 'reducer',
@@ -12,7 +13,8 @@ const persistConfig = {
 };
 
 const reducers = combineReducers({
-    auth
+    auth,
+    practitioner
 })
 
 export type RootState = ReturnType<typeof store.getState>;

@@ -1,13 +1,19 @@
 import styles from './PractitionerHeader.module.scss';
 import {ReactComponent as Circle} from "../../resources/svgs/circle.svg";
+import {useEffect, useState} from "react";
 
 interface Props {
-    setActive: (active: string) => void
+    setActivePage: (active: string) => void
 }
 
-const PractitionerHeader = ({setActive}: Props) => {
+const PractitionerHeader = ({setActivePage}: Props) => {
 
+    const [active, setActive] = useState<string>('Questionnaires');
     const pages = ["Questionnaires", "Clients", "Responses"];
+
+    useEffect(() => {
+        setActivePage(active)
+    }, [setActivePage, active])
 
     return (
         <div className={styles.header}>
@@ -16,8 +22,8 @@ const PractitionerHeader = ({setActive}: Props) => {
                 <h1>Theorist</h1>
             </div>
             <div className={styles.links}>
-                {pages.map((page) => (
-                    <div onClick={() => setActive(page)}>{page}</div>
+                {pages.map((page, id) => (
+                    <div key={id} className={`${page === active ? styles.active : ''}`} onClick={() => setActive(page)}>{page}</div>
                 ))}
             </div>
         </div>

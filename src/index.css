@@ -31,6 +31,10 @@ body {
   height: 100%;
 }
 
+h1, h2, h3, h5, h6, p {
+  margin: 0;
+}
+
 :root {
   --color-primary: #B7C8C2;
   --color-secondary: #ECA4B1;

@@ -1,4 +1,10 @@
 .page {
+  width: 100%;
   min-height: 100%;
   display: flex;
+  padding: 100px 30px;
+
+  &:last-child {
+    width: 100%;
+  }
 }

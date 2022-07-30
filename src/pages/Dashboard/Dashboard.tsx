@@ -7,9 +7,7 @@ const Dashboard = () => {
     const {state} = useLocation();
     const role = (state as {role: string}).role;
 
-    return (
-        <div>{role && 'practitioner' ? <PractitionerDashboard/> : <ClientDashboard/>}</div>
-    )
+    return role && 'practitioner' ? <PractitionerDashboard/> : <ClientDashboard/>;
 }
 
 export default Dashboard;
