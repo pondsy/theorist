@@ -1,6 +1,8 @@
 import {auth, db} from "./init";
 import firebase from "firebase/compat/app";
 import {Questionnaire} from "../components/Questionnaires/Questionnaires";
+import {FreeText} from "../components/Questionnaires/FreeTextQuestion/FreeTextQuestion";
+import {MultiChoice} from "../components/Questionnaires/MultiChoiceQuestion/MultiChoiceQuestion";
 
 export class Firebase {
     public static login = async (email: string, password: string, role: string): Promise<firebase.User|undefined> => {
@@ -54,7 +56,15 @@ export class Firebase {
         const uid = questionnaire.practitioner;
 
         if (questionnaire.id) {
-            return await db.collection("questionnaires").doc(questionnaire.id).set(questionnaire)
+            const data = {
+                title: questionnaire.title,
+                questions: questionnaire.questions,
+                added: questionnaire.added,
+                clients: questionnaire.clients,
+                filledIn: questionnaire.filledIn,
+                practitioner: questionnaire.practitioner
+            }
+            return await db.collection("questionnaires").doc(questionnaire.id).set(data)
                 .then(() => {
                     return this.getQuestionnaires(uid)
                 })
