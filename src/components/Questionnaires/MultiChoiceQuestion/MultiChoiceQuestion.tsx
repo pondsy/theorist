@@ -10,6 +10,8 @@ import {Option} from "../MultiChoiceOption/MultiChoiceOption";
 import MultiChoiceOption from "../MultiChoiceOption";
 import {ReactComponent as Edit} from "../../../resources/svgs/edit.svg";
 import {Question} from "../Questionnaires";
+import ErrorMessage from "../../ErrorMessage";
+import useValidation from "../../../hooks/useValidation";
 
 export interface MultiChoice extends Question {
     options?: Option[]
@@ -25,6 +27,7 @@ interface Props {
 const MultiChoiceQuestion = ({className, values, addQuestion, removeQuestion}: Props) => {
 
     const id = useId();
+    const {validateTitle, validateOptions} = useValidation();
     const [form, setForm] = useState<MultiChoice>({
         id,
         title: '',
@@ -33,11 +36,10 @@ const MultiChoiceQuestion = ({className, values, addQuestion, removeQuestion}: P
     });
     const [addOption, setAddOption] = useState<boolean>();
     const [editOption, setEditOption] = useState<Option>();
+    const [errors, setErrors] = useState<{title?: string, options?: string}>();
 
     useEffect(() => {
-        if (values) {
-            setForm(values)
-        }
+        if (values) setForm(values);
     }, [values])
 
     useEffect(() => {
@@ -45,16 +47,37 @@ const MultiChoiceQuestion = ({className, values, addQuestion, removeQuestion}: P
         setEditOption(undefined);
     }, [form])
 
+    const addToForm = () => {
+        const errors = {
+            title: validateTitle(form.title),
+            options: validateOptions(form.options||[])
+        };
+        setErrors(errors);
+        if (errors.title || errors.options) return;
+
+        addQuestion(form)
+    }
+
+    useEffect(() => {
+        if (!errors?.title && !errors?.options) return;
+        const timeoutID = window.setTimeout(() => {
+            setErrors(undefined)
+        }, 3000);
+
+        return () => window.clearTimeout(timeoutID);
+    }, [errors]);
+
     return (
         <div key={form.id} className={className}>
             <label>Multi-choice question {form.id}</label>
             <div className={sharedStyles.inputWithButtons}>
-                <input className={styles.input} value={form?.title} onChange={(e)=> setForm((prev) => ({...prev, title: e.target.value}))}/>
+                <input onKeyDown={(e) => e.key === 'Enter' && addToForm()} className={`${styles.input} ${errors?.title && sharedStyles.error}`} value={form?.title} onChange={(e)=> setForm((prev) => ({...prev, title: e.target.value}))}/>
                 <span className={sharedStyles.inlineIconButtons}>
-                    <Save onClick={() => addQuestion(form)}/>
+                    <Save onClick={addToForm}/>
                     <Delete onClick={() => removeQuestion(form.id)}/>
                 </span>
             </div>
+            {errors?.title && <ErrorMessage error={errors?.title}/>}
 
             {form.options && form.options.map((option, id) => (
                 <div key={id} className={styles.inputWithButtons}>
@@ -62,6 +85,7 @@ const MultiChoiceQuestion = ({className, values, addQuestion, removeQuestion}: P
                         <MultiChoiceOption
                             className={styles.labeledInput}
                             values={option}
+                            save={addOption}
                             addAnswer={(answer) => setForm((prev) => {
                                 return ({
                                     ...prev,
@@ -82,8 +106,11 @@ const MultiChoiceQuestion = ({className, values, addQuestion, removeQuestion}: P
                 </div>
             ))}
 
+            {errors?.options && <ErrorMessage error={errors?.options}/>}
+
             {addOption && <MultiChoiceOption
                 className={`${styles.labeledInput} ${styles.indent}`}
+                save={addOption}
                 addAnswer={(answer) => setForm((prev) => ({...prev, options: prev.options?.concat(answer)}))}
                 removeAnswer={(id: string) => setForm((prev) => ({...prev, options: prev.options?.filter(q => q.id !== id)}))}
             />}

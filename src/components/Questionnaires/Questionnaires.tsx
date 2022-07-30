@@ -36,13 +36,13 @@ export interface Question {
 }
 
 export interface TableData {
-    col2: string;
-    col3: number;
-    col4: string;
+    col1: string;
+    col2: number;
+    col3: string;
+    col4: string[];
     col5: string[];
-    col6: string[];
+    col6: string;
     col7: string;
-    col8: string;
 }
 
 const Questionnaires = () => {
@@ -60,13 +60,13 @@ const Questionnaires = () => {
             const rate = questionnaire?.filledIn?.length && questionnaire?.clients?.length ? questionnaire.filledIn.length / questionnaire.clients.length : 0;
             return [
                 {
-                    col2: questionnaire.title,
-                    col3: questionnaire.questions.length,
-                    col4: questionnaire.added,
-                    col5: questionnaire.clients||[],
-                    col6: questionnaire.filledIn||[],
-                    col7: `${(rate).toFixed(2)} %`,
-                    col8: questionnaire.id || ''
+                    col1: questionnaire.title,
+                    col2: questionnaire.questions.length,
+                    col3: questionnaire.added,
+                    col4: questionnaire.clients||[],
+                    col5: questionnaire.filledIn||[],
+                    col6: `${(rate).toFixed(2)} %`,
+                    col7: questionnaire.id!
                 }
             ]
         }).flat();
@@ -75,17 +75,17 @@ const Questionnaires = () => {
     const columns = useMemo<Column<TableData>[]>(() => ([
         {
             Header: 'Title',
-            accessor: 'col2',
+            accessor: 'col1',
             Cell: (cell) => <div>{cell.value}</div>
         },
         {
             Header: 'Questions',
-            accessor: 'col3',
+            accessor: 'col2',
             Cell: (cell) => <div>{cell.value}</div>
         },
         {
             Header: 'Added',
-            accessor: 'col4',
+            accessor: 'col3',
             Cell: (cell) => <div>{new Date(cell.value).toLocaleDateString("en-GB", {
                 year: "numeric",
                 day: "numeric",
@@ -94,22 +94,22 @@ const Questionnaires = () => {
         },
         {
             Header: 'Clients',
-            accessor: 'col5',
+            accessor: 'col4',
             Cell: (cell) => <div>{cell.value.length}</div>
         },
         {
             Header: 'Filled in',
-            accessor: 'col6',
+            accessor: 'col5',
             Cell: (cell) => <div>{cell.value.length}</div>
         },
         {
             Header: 'Rate',
-            accessor: 'col7',
+            accessor: 'col6',
             Cell: (cell) => <div>{cell.value}</div>
         },
         {
             Header: '',
-            accessor: 'col8',
+            accessor: 'col7',
             Cell: (cell) => <div className={sharedStyles.inlineIconButtons}>
                 {remove && remove.id === cell.value ?
                     <React.Fragment>

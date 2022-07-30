@@ -13,8 +13,12 @@
   gap: 10px;
 
   > svg {
-    height: 20px;
+    height: 15px;
     fill: var(--color-dark);
     cursor: pointer;
   }
+}
+
+.error {
+  border-color: red !important;
 }
