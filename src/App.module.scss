@@ -1,9 +1,7 @@
 .app {
   min-height: 100%;
-  text-align: center;
+  width: 100%;
   background: linear-gradient(90deg, var(--linear-left), var(--linear-right));
-  color: var(--color-background);
+  color: var(--color-dark);
   display: flex;
-  justify-content: center;
-  align-items: center;
 }

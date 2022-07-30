@@ -1,5 +1,21 @@
+.page {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: var(--color-light);
+}
+
+.logo {
+  fill: var(--color-light);
+  width: 250px;
+}
+
 .buttonContainer {
   display: flex;
+  gap: 20px;
   justify-content: space-around;
   align-items: center;
 }
