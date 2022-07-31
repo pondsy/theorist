@@ -1,12 +1,12 @@
 import {auth, db} from "./init";
 import firebase from "firebase/compat/app";
 import {Questionnaire} from "../components/Questionnaires/Questionnaires";
-import {FreeText} from "../components/Questionnaires/FreeTextQuestion/FreeTextQuestion";
-import {MultiChoice} from "../components/Questionnaires/MultiChoiceQuestion/MultiChoiceQuestion";
+import {Client} from "../store/practitioner/practitionerTypes";
 
 export class Firebase {
+
     public static login = async (email: string, password: string, role: string): Promise<firebase.User|undefined> => {
-        const login = await auth.signInWithEmailAndPassword(email, password);
+        await auth.signInWithEmailAndPassword(email, password);
         const user = await firebase.auth().currentUser;
         if (!user) {
             await this.logout('User not found!');
@@ -38,6 +38,10 @@ export class Firebase {
         return localUser ? JSON.parse(localUser) : firebase.auth().currentUser || undefined;
     };
 
+    private static getUser = async (uid: string): Promise<any> => {
+        return await db.collection("users").doc(uid).get().then((querySnapshot) => querySnapshot.data());
+    };
+
     public static getQuestionnaires = async (uid: string): Promise<any> => {
         let data: any[] = [];
 
@@ -60,8 +64,6 @@ export class Firebase {
                 title: questionnaire.title,
                 questions: questionnaire.questions,
                 added: questionnaire.added,
-                clients: questionnaire.clients,
-                filledIn: questionnaire.filledIn,
                 practitioner: questionnaire.practitioner
             }
             return await db.collection("questionnaires").doc(questionnaire.id).set(data)
@@ -87,7 +89,33 @@ export class Firebase {
             .then(() => this.getQuestionnaires(uid));
     };
 
-    private static getUser = async (uid: string): Promise<any> => {
-        return await db.collection("users").doc(uid).get().then((querySnapshot) => querySnapshot.data());
-    };
+    public static getClients = async (uid: string) => {
+        let data: any[] = [];
+
+        await db.collection("users").where("practitioner", "==", uid).where("role", "==", 'client').get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    data = data.concat({id: doc.id, ...doc.data()})
+                });
+        })
+
+        return data;
+    }
+
+    public static assignQuestionnaire = async (uid: string, client: Client) => {
+
+        const data = {
+            name: client.name,
+            email: client.email,
+            role: client.role,
+            questionnaire: client.questionnaire,
+            birthdate: client.birthdate,
+            practitioner: client.practitioner
+        }
+            return await db.collection("users").doc(client.id).set(data)
+                .then(() => {
+                    return this.getClients(uid)
+                })
+    }
+
 }
