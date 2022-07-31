@@ -1,7 +1,7 @@
 import styles from "../Practitioner/PractitionerDashboard.module.scss";
 import Header from "../../../components/Header";
 import {useState} from "react";
-import Questionnaires from "../Practitioner/Questionnaires";
+import Questionnaires from "../Client/Questionnaires";
 
 const ClientDashboard = () => {
 
