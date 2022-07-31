@@ -7,6 +7,10 @@ class ClientService {
         return await Firebase.getClientQuestionnaires(ids, clientId);
     }
 
+    static async getClientResponses(uid: string): Promise<ClientQuestionnaire[]> {
+        return await Firebase.getAnswersByClient(uid);
+    }
+
     static async saveClientAnswer(questionnaire: ClientQuestionnaire): Promise<ClientQuestionnaire[]> {
         return await Firebase.saveClientAnswer(questionnaire);
     }

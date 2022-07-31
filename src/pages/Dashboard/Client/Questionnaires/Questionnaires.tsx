@@ -1,42 +1,81 @@
 import styles from "./Questionnaires.module.scss";
-import React, {useState} from "react";
+import React, {useMemo, useState} from "react";
 import {useAppSelector} from "../../../../store/store";
-import QuestionnaireCard from "../QuestionnaireCard";
+import QuestionnaireCard from "./QuestionnaireCard";
 import Modal from "../../../../components/Modal";
 import FillQuestionnaire from "./FillQuestionnaire";
 import {ClientQuestionnaire} from "../../../../store/client/clientTypes";
 import {useDispatch} from "react-redux";
 import {saveClientAnswer} from "../../../../store/client/clientActions";
+import ResponseCard from "../../Practitioner/Responses/ResponseCard";
+import ViewResponses from "../../../../components/ViewResponses";
 
 const Questionnaires = () => {
 
     const dispatch = useDispatch();
 
     const questionnaires = useAppSelector(state => state.client.questionnaires);
+    const answers = useAppSelector(state => state.client.answers);
+    const answerIds = answers.map((answer) => answer.questionnaireId);
 
-    const [active, setActive] = useState<ClientQuestionnaire>();
+    const available = useMemo(() => {
+        return questionnaires.filter((item) => !answerIds.includes(item.questionnaireId))
+    }, [answerIds, questionnaires]);
+
+    const [create, setCreate] = useState<ClientQuestionnaire>();
+    const [view, setView] = useState<ClientQuestionnaire>();
 
     const saveAnswer = (questionnaire: ClientQuestionnaire) => {
         dispatch(saveClientAnswer(questionnaire));
-        setActive(undefined);
+        setCreate(undefined);
     }
 
-    return (
-        <div>
-            <h2 className={styles.title}>Available questionnaires</h2>
-            {questionnaires.map((q, id) => (
-                <QuestionnaireCard key={id} questionnaire={q} open={(questionnaire) => setActive(questionnaire)}/>
-            ))}
 
-            {active && <Modal
-                open={!!active}
-                close={() => setActive(undefined)}
+
+    return (
+        <div className={styles.page}>
+            <div className={styles.container}>
+                <h2 className={styles.title}>Available questionnaires</h2>
+                {available.map((q, id) => (
+                    <QuestionnaireCard key={id} questionnaire={q} open={(questionnaire) => setCreate(questionnaire)}/>
+                ))}
+                {!available.length && <div className={styles.message}>
+                    You don't have any available questionnaire.
+                </div>}
+            </div>
+
+            <div className={styles.container}>
+                <h2 className={styles.title}>Previously filled in</h2>
+                {answers.map((a, id) => (
+                    <ResponseCard key={id} response={a} open={(questionnaire) => setView(questionnaire)}/>
+                ))}
+
+                {!answers.length && <div className={styles.message}>
+                    You haven't filled in any questionnaires yet.
+                </div>}
+            </div>
+
+            {create && <Modal
+                open={!!create}
+                close={() => setCreate(undefined)}
                 className={styles.modal}
                 content={
                     <FillQuestionnaire
-                        close={() => setActive(undefined)}
-                        fields={active}
+                        close={() => setCreate(undefined)}
+                        fields={create}
                         saveQuestionnaire={(questionnaire) => saveAnswer(questionnaire)}
+                    />
+                }
+            />}
+
+            {view && <Modal
+                open={!!view}
+                close={() => setView(undefined)}
+                className={styles.modal}
+                content={
+                    <ViewResponses
+                        close={() => setView(undefined)}
+                        fields={view}
                     />
                 }
             />}

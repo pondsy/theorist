@@ -54,7 +54,7 @@ const EditQuestionnaire = ({close, fields, saveQuestionnaire}: Props) => {
 
         saveQuestionnaire({
             ...questionnaire,
-            added: new Date().toISOString()
+            added: questionnaire.added || new Date().toISOString()
         })
     }
 

@@ -1,4 +1,4 @@
-import styles from "../Questionnaires/Questionnaires.module.scss";
+import styles from './Responses.module.scss';
 import React, {useState} from "react";
 import {Client} from "../../../../store/practitioner/practitionerTypes";
 import {ClientQuestionnaire} from "../../../../store/client/clientTypes";
@@ -17,23 +17,26 @@ const Responses = () => {
 
     return (
         <div className={styles.page}>
+
             <h2 className={styles.title}>Client responses</h2>
+            <div className={styles.container}>
 
-            {responses.map((r, id) => {
+                {responses.map((r, id) => {
 
-                const client = clients.find(client => client.id === r.clientId);
-                if (!client) {
-                    return <></>
-                }
+                    const client = clients.find(client => client.id === r.clientId);
+                    if (!client) {
+                        return <></>
+                    }
 
-                return (
-                    <ResponseCard
-                        key={id} client={client} response={r}
-                        open={(response) => {
-                            setClient(client)
-                            setActive(response)
-                        }}/>)
-            })}
+                    return (
+                        <ResponseCard
+                            key={id} client={client} response={r}
+                            open={(response) => {
+                                setClient(client)
+                                setActive(response)
+                            }}/>)
+                })}
+            </div>
 
             {active && <Modal
                 open={!!active}

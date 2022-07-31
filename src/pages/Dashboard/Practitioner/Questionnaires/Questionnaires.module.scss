@@ -57,3 +57,12 @@
     background:radial-gradient(circle at 100% 100%, transparent 25px, var(--color-primary) 21px);
   }
 }
+
+.modal {
+  width: 700px;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -20%);
+  text-align: center;
+}

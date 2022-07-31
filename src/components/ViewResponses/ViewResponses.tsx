@@ -8,7 +8,7 @@ import Divider from "../Divider";
 interface Props {
     close: () => void;
     fields: ClientQuestionnaire;
-    client: Client;
+    client?: Client;
 }
 
 const ViewResponses = ({close, fields, client}: Props) => {
@@ -16,8 +16,11 @@ const ViewResponses = ({close, fields, client}: Props) => {
     return (
         <React.Fragment>
 
-            <div className={styles.title}>
-                <h3>{fields.title} by {client.name}</h3>
+            <div className={styles.titleContainer}>
+                <div className={styles.title}>
+                    <h3>{fields.title}</h3>
+                    {client && <h3>by {client.name}</h3>}
+                </div>
                 <Regard onClick={close}/>
             </div>
 
@@ -25,8 +28,8 @@ const ViewResponses = ({close, fields, client}: Props) => {
 
             <div className={styles.labeledInput}>
                 {fields.questions?.map((question: FreeText | MultiChoice, id) => (
-                    <React.Fragment>
-                        <div key={id} className={styles.userAnswers}>
+                    <React.Fragment key={id}>
+                        <div className={styles.userAnswers}>
                             <div>
                                 <label className={styles.questionCount}>{id + 1}</label>
                                 <label>{question.title}</label>
