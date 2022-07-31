@@ -1,4 +1,4 @@
-import React, {useEffect, useId, useState} from "react";
+import React, {useEffect, useState} from "react";
 import styles from "../EditQuestionnaire/EditQuestionnaire.module.scss";
 import {ReactComponent as Save} from "../../../../../resources/svgs/save.svg";
 import sharedStyles from "../../../../../styles/shared.module.scss";
@@ -9,7 +9,7 @@ import ErrorMessage from "../../../../../components/ErrorMessage";
 
 interface Props {
     className: string;
-    values?: Option;
+    values: Option;
     save?: boolean;
     addAnswer: (form: Option) => void;
     removeAnswer: (id: string) => void;
@@ -17,15 +17,10 @@ interface Props {
 
 const MultiChoiceOption = ({className, values, addAnswer, removeAnswer}: Props) => {
 
-    const id = useId();
     const {validateQuestion} = useValidation();
 
     const [errors, setErrors] = useState<{answer?: string}>();
-    const [form, setForm] = useState<Option>({
-        id,
-        answer: '',
-        selected: false
-    });
+    const [form, setForm] = useState<Option>(values);
 
     useEffect(() => {
         if (values) setForm(values);
@@ -52,7 +47,7 @@ const MultiChoiceOption = ({className, values, addAnswer, removeAnswer}: Props) 
 
     return (
         <div key={form.id} className={className}>
-            <label>Answer {form.id}</label>
+            <label>Answer</label>
             <div className={sharedStyles.inputWithButtons}>
                 <input onKeyDown={(e) => e.key === 'Enter' && addToForm()} className={`${styles.input} ${errors?.answer && sharedStyles.error}`} value={form?.answer} onChange={(e)=> setForm((prev) => ({...prev, answer: e.target.value}))}/>
                 <span className={sharedStyles.inlineIconButtons}>

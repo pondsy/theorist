@@ -1,4 +1,4 @@
-import React, {useEffect, useId, useState} from "react";
+import React, {useEffect, useState} from "react";
 import styles from "../EditQuestionnaire/EditQuestionnaire.module.scss";
 import {ReactComponent as Save} from "../../../../../resources/svgs/save.svg";
 import sharedStyles from "../../../../../styles/shared.module.scss";
@@ -6,30 +6,24 @@ import {ReactComponent as Delete} from "../../../../../resources/svgs/delete.svg
 import {ReactComponent as Add} from "../../../../../resources/svgs/add.svg";
 import MultiChoiceOption from "../MultiChoiceOption";
 import {ReactComponent as Edit} from "../../../../../resources/svgs/edit.svg";
-import {MultiChoice, Option, QuestionType} from "../../../../../store/practitioner/practitionerTypes";
+import {MultiChoice, Option} from "../../../../../store/practitioner/practitionerTypes";
 import useValidation from "../../../../../hooks/useValidation";
 import ErrorMessage from "../../../../../components/ErrorMessage";
 import Button from "../../../../../components/Button";
-
+import { v4 as uuid } from 'uuid';
 
 interface Props {
     className: string;
-    values?: MultiChoice;
+    values: MultiChoice;
     addQuestion: (form: MultiChoice) => void;
     removeQuestion: (id: string) => void;
 }
 
 const MultiChoiceQuestion = ({className, values, addQuestion, removeQuestion}: Props) => {
 
-    const id = useId();
     const {validateTitle, validateOptions} = useValidation();
-    const [form, setForm] = useState<MultiChoice>({
-        id,
-        title: '',
-        type: QuestionType.multiChoice,
-        options: []
-    });
-    const [addOption, setAddOption] = useState<boolean>();
+    const [form, setForm] = useState<MultiChoice>(values);
+    const [addOption, setAddOption] = useState<Option[]>(values.options.length ? [] : [{id: uuid(), answer: '', selected: false}, {id: uuid(), answer: '', selected: false}]);
     const [editOption, setEditOption] = useState<Option>();
     const [errors, setErrors] = useState<{title?: string, options?: string}>();
 
@@ -38,7 +32,6 @@ const MultiChoiceQuestion = ({className, values, addQuestion, removeQuestion}: P
     }, [values])
 
     useEffect(() => {
-        setAddOption(undefined);
         setEditOption(undefined);
     }, [form])
 
@@ -64,7 +57,7 @@ const MultiChoiceQuestion = ({className, values, addQuestion, removeQuestion}: P
 
     return (
         <div key={form.id} className={className}>
-            <label>Multi-choice question {form.id}</label>
+            <label>New multi-choice question</label>
             <div className={sharedStyles.inputWithButtons}>
                 <input onKeyDown={(e) => e.key === 'Enter' && addToForm()} className={`${styles.input} ${errors?.title && sharedStyles.error}`} value={form?.title} onChange={(e)=> setForm((prev) => ({...prev, title: e.target.value}))}/>
                 <span className={sharedStyles.inlineIconButtons}>
@@ -80,7 +73,6 @@ const MultiChoiceQuestion = ({className, values, addQuestion, removeQuestion}: P
                         <MultiChoiceOption
                             className={styles.labeledInput}
                             values={option}
-                            save={addOption}
                             addAnswer={(answer) => setForm((prev) => {
                                 return ({
                                     ...prev,
@@ -103,14 +95,25 @@ const MultiChoiceQuestion = ({className, values, addQuestion, removeQuestion}: P
 
             {errors?.options && <ErrorMessage error={errors?.options}/>}
 
-            {addOption && <MultiChoiceOption
-                className={`${styles.labeledInput} ${styles.indent}`}
-                save={addOption}
-                addAnswer={(answer) => setForm((prev) => ({...prev, options: prev.options?.concat(answer)}))}
-                removeAnswer={(id: string) => setForm((prev) => ({...prev, options: prev.options?.filter(q => q.id !== id)}))}
-            />}
+            {addOption && addOption.map((option, index) => {
+                return (<MultiChoiceOption
+                    key={index}
+                    className={`${styles.labeledInput} ${styles.indent}`}
+                    values={option}
+                    addAnswer={(answer) => {
+                        setForm((prev) => ({...prev, options: prev.options?.concat(answer)}))
+                        setAddOption((prev) => {
+                            return prev.filter((id) => id.id !== answer.id)
+                        })
+                    }}
+                    removeAnswer={(answerId: string) => {
+                        setForm((prev) => ({...prev, options: prev.options?.filter(q => q.id !== answerId)}))
+                        setAddOption((prev) => prev.filter((option) => answerId !== option.id))
+                    }}
+                />)
+            })}
 
-            <Button icon={<Add/>} color='none' hoverColor="none" padding="5px 20px" text="option" onClick={() => setAddOption(true)}/>
+            <Button icon={<Add/>} color='none' hoverColor="none" padding="5px 20px" text="option" onClick={() => setAddOption((prev) => prev.concat({id: uuid(), answer: '', selected: false}))}/>
         </div>
     )
 }

@@ -1,9 +1,9 @@
 import styles from './ViewResponses.module.scss';
-import {ClientQuestionnaire} from "../../../../store/client/clientTypes";
-import Divider from "../../../../components/Divider";
-import {Client, FreeText, MultiChoice, QuestionType} from "../../../../store/practitioner/practitionerTypes";
 import React from "react";
-import {ReactComponent as Regard} from "../../../../resources/svgs/regard.svg";
+import {ReactComponent as Regard} from "../../resources/svgs/regard.svg";
+import {ClientQuestionnaire} from "../../store/client/clientTypes";
+import {Client, FreeText, MultiChoice, QuestionType} from "../../store/practitioner/practitionerTypes";
+import Divider from "../Divider";
 
 interface Props {
     close: () => void;
