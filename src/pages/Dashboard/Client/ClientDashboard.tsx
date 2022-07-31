@@ -5,7 +5,7 @@ import Questionnaires from "../Client/Questionnaires";
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../../store/store";
 import {AuthState} from "../../../store/auth/authTypes";
-import {getQuestionnaires} from "../../../store/client/clientActions";
+import {getClientResponses, getQuestionnaires} from "../../../store/client/clientActions";
 
 const ClientDashboard = () => {
 
@@ -21,7 +21,11 @@ const ClientDashboard = () => {
 
 
     useEffect(() => {
-        if (auth.data.questionnaire?.available.length) dispatch(getQuestionnaires(auth.data.questionnaire?.available, auth.user.uid));
+        if (auth.data.questionnaire?.available.length) {
+            dispatch(getQuestionnaires(auth.data.questionnaire?.available, auth.user.uid));
+        }
+
+        dispatch(getClientResponses(auth.user.uid))
     }, [dispatch])
 
     return (

@@ -1,5 +1,5 @@
 import {createReducer, Reducer} from "@reduxjs/toolkit";
-import {GET_CLIENT_QUESTIONNAIRES, SAVE_ANSWER} from "./clientConstants";
+import {GET_CLIENT_QUESTIONNAIRES, GET_RESPONSES, SAVE_ANSWER} from "./clientConstants";
 import {ClientState} from "./clientTypes";
 import {PURGE} from "redux-persist/es/constants";
 
@@ -16,6 +16,12 @@ const client: Reducer<ClientState> = createReducer(initialState, {
     }
   },
   [SAVE_ANSWER]: (state, action) => {
+    return {
+      ...state,
+      answers: action.payload
+    }
+  },
+  [GET_RESPONSES]: (state, action) => {
     return {
       ...state,
       answers: action.payload

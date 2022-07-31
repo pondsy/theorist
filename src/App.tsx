@@ -5,10 +5,13 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Login from "./pages/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import Dashboard from "./pages/Dashboard";
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
     return (
         <div className={styles.app}>
+            <ToastContainer/>
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Welcome/>}/>

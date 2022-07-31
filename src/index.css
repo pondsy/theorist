@@ -1,18 +1,25 @@
+/*@font-face {*/
+/*  font-family: 'IconSolataVariable';*/
+/*  src: url('./resources/fonts/IconSolataVariable/InconsolataVariableFont_wdth_wght.eot');*/
+/*  src: url('./resources/fonts/IconSolataVariable/InconsolataVariableFont_wdth_wght.eot') format('embedded-opentype'),*/
+/*  url('./resources/fonts/IconSolataVariable/InconsolataVariableFont_wdth_wght.woff2') format('woff2'),*/
+/*  url('./resources/fonts/IconSolataVariable/InconsolataVariableFont_wdth_wght.woff') format('woff'),*/
+/*  url('./resources/fonts/IconSolataVariable/InconsolataVariableFont_wdth_wght.ttf') format('truetype'),*/
+/*  url('./resources/fonts/IconSolataVariable/InconsolataVariableFont_wdth_wght.svg#WorkSansRegular') format('svg');*/
+/*}*/
 @font-face {
-  font-family: 'IconSolataVariable';
-  src: url('./resources/fonts/IconSolataVariable/InconsolataVariableFont_wdth_wght.eot');
-  src: url('./resources/fonts/IconSolataVariable/InconsolataVariableFont_wdth_wght.eot') format('embedded-opentype'),
-  url('./resources/fonts/IconSolataVariable/InconsolataVariableFont_wdth_wght.woff2') format('woff2'),
-  url('./resources/fonts/IconSolataVariable/InconsolataVariableFont_wdth_wght.woff') format('woff'),
-  url('./resources/fonts/IconSolataVariable/InconsolataVariableFont_wdth_wght.ttf') format('truetype'),
-  url('./resources/fonts/IconSolataVariable/InconsolataVariableFont_wdth_wght.svg#WorkSansRegular') format('svg');
+  font-family: 'Cairo';
+  src: url('./resources/fonts/Cairo/Cairo-Regular.woff2') format('woff2'),
+  url('./resources/fonts/Cairo/Cairo-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
-
 html {
   margin: 0;
   height: 100%;
   width: 100%;
-  font-family: 'IconSolataVariable', sans-serif;
+  font-family: 'Cairo', sans-serif;
   background-color: #e6e6e6;
 }
 

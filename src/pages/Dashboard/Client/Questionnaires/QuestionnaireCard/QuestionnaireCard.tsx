@@ -1,5 +1,5 @@
 import styles from './QuestionnaireCard.module.scss';
-import {ClientQuestionnaire} from "../../../../store/client/clientTypes";
+import {ClientQuestionnaire} from "../../../../../store/client/clientTypes";
 
 interface Props {
     questionnaire: ClientQuestionnaire;

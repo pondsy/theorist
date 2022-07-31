@@ -4,7 +4,7 @@ import {AuthState} from "./authTypes";
 
 class AuthService {
 
-    static async login(email: string, password: string, role: string): Promise<AuthState | undefined> {
+    static async login(email: string, password: string, role: string): Promise<AuthState> {
         return await Firebase.login(email, password, role);
     }
 

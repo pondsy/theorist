@@ -6,21 +6,20 @@ import {ClientQuestionnaire} from "../store/client/clientTypes";
 
 export class Firebase {
 
-    public static login = async (email: string, password: string, role: string): Promise<AuthState|undefined> => {
+    public static login = async (email: string, password: string, role: string): Promise<AuthState> => {
         await auth.signInWithEmailAndPassword(email, password);
         const user = await firebase.auth().currentUser;
         if (!user) {
-            await this.logout('User not found!');
-            return;
+            await this.logout();
+            throw new Error('User not found!');
         }
         const document = await this.getUser(user?.uid);
         if (!document) {
-            await this.logout('User record not found!');
-            return;
+            await this.logout();
+            throw new Error('User record not found!');
         }
         if (document.role !== role) {
-            await this.logout('Incorrect role!');
-            return;
+            throw new Error(`You don't have permission to log in as ${role}!`);
         }
 
         localStorage.setItem('user', JSON.stringify(user));
@@ -31,10 +30,9 @@ export class Firebase {
         };
     };
 
-    public static logout = async (error?: string) => {
+    public static logout = async () => {
         localStorage.removeItem('user');
         await auth.signOut();
-        if (error) throw new Error(error);
     };
 
     public static isLoggedIn = (): firebase.User|undefined => {

@@ -1,4 +1,4 @@
-import {GET_CLIENT_QUESTIONNAIRES, SAVE_ANSWER} from "./clientConstants";
+import {GET_CLIENT_QUESTIONNAIRES, SAVE_ANSWER, GET_RESPONSES} from "./clientConstants";
 import {AppDispatch} from "../store";
 import ClientService from "./clientService";
 import {ClientQuestionnaire} from "./clientTypes";
@@ -7,6 +7,14 @@ export const getQuestionnaires = (uid: string[], clientId: string) => async (dis
   const data = await ClientService.getQuestionnaires(uid, clientId);
   dispatch({
     type: GET_CLIENT_QUESTIONNAIRES,
+    payload: data,
+  });
+};
+
+export const getClientResponses = (uid: string) => async (dispatch: AppDispatch) => {
+  const data = await ClientService.getClientResponses(uid);
+  dispatch({
+    type: GET_RESPONSES,
     payload: data,
   });
 };
