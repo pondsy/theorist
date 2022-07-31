@@ -33,9 +33,7 @@ const Clients = () => {
 
     const data = useMemo<TableData[]>(() => {
         return clients.map((client) => {
-
             const ready = responses.filter((response) => response.clientId === client.id).length || 0;
-
             return [
                 {
                     col1: client.name,
@@ -126,14 +124,18 @@ const Clients = () => {
                     <h2>Available to assign</h2>
                     {questionnaires.map((questionnaire, id) => (
                         <label key={id} className={sharedStyles.checkboxContainer}>
-                            <input
-                                type="checkbox"
-                                checked={assigning?.questionnaire.available.includes(questionnaire.id!)}
-                                value={questionnaire.id!}
-                                onChange={(e) => handleChange(e)}
-                                className={sharedStyles.checkbox}
-                            />
-                            <h4>{questionnaire.title}</h4>
+                            {questionnaire?.id &&
+                                <React.Fragment>
+                                    <input
+                                        type="checkbox"
+                                        checked={assigning?.questionnaire.available.includes(questionnaire.id)}
+                                        value={questionnaire.id}
+                                        onChange={(e) => handleChange(e)}
+                                        className={sharedStyles.checkbox}
+                                    />
+                                    <h4>{questionnaire.title}</h4>
+                                </React.Fragment>
+                            }
                         </label>
                     ))}
                     {<div className={styles.footerButtons}>

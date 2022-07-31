@@ -12,7 +12,7 @@ class AuthService {
         return Firebase.logout();
     };
 
-    static isLoggedIn(): firebase.User|undefined {
+    static isLoggedIn(): firebase.User | undefined {
         return Firebase.isLoggedIn();
     }
 }

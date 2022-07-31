@@ -1,25 +1,25 @@
 .card {
-	display: flex;
-    flex-direction: column;
-    border-radius: 5px;
-    background: var(--color-primary);
-    margin: 1em;
-    padding: 20px;
-    box-shadow: 0 1.5em 2.5em -0.5em rgb(0 0 0 / 10%);
-    transition: transform 0.45s ease, background 0.45s ease;
-	cursor: pointer;
-	color: var(--linear-right);
-	max-width: 300px;
-	justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  background: var(--color-primary);
+  margin: 1em;
+  padding: 20px;
+  box-shadow: 0 1.5em 2.5em -0.5em rgb(0 0 0 / 10%);
+  transition: transform 0.45s ease, background 0.45s ease;
+  cursor: pointer;
+  color: var(--linear-right);
+  max-width: 300px;
+  justify-content: space-between;
 
-	> :not(:last-child) {
-		margin: 0 0 20px;
-		font-size: 1.2em;
-	}
+  > :not(:last-child) {
+    margin: 0 0 20px;
+    font-size: 1.2em;
+  }
 
-	&:hover {
-		background: var(--color-action);
-		transform: scale(1.02);
-		color: var(--color-dark);
-	}
+  &:hover {
+    background: var(--color-action);
+    transform: scale(1.02);
+    color: var(--color-dark);
+  }
 }

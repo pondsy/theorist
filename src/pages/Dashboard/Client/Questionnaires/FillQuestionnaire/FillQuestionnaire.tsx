@@ -1,11 +1,6 @@
 import React, {useEffect, useState} from "react";
 import styles from './FillQuestionnaire.module.scss';
-import {
-    FreeText,
-    MultiChoice,
-    Question,
-    QuestionType
-} from "../../../../../store/practitioner/practitionerTypes";
+import {FreeText, MultiChoice, Question, QuestionType} from "../../../../../store/practitioner/practitionerTypes";
 import FreeTextAnswer from "../FreeTextAnswer";
 import MultiChoiceAnswer from "../MultiChoiceAnswer";
 import ProgressBar from "../../../../../components/ProgressBar";
@@ -20,7 +15,7 @@ interface Props {
 
 const FillQuestionnaire = ({close, fields, saveQuestionnaire}: Props) => {
 
-    const [errors, setErrors] = useState<{title?: string, questions?: string}>();
+    const [errors, setErrors] = useState<{ title?: string, questions?: string }>();
     const [active, setActive] = useState<number>(0);
     const [questions, setQuestions] = useState<Question[]>(fields?.questions || []);
     const [ready, setReady] = useState<boolean>(false);
@@ -46,15 +41,15 @@ const FillQuestionnaire = ({close, fields, saveQuestionnaire}: Props) => {
         [QuestionType.multiChoice]: MultiChoiceAnswer
     };
 
-    const submitAnswer = (answer: MultiChoice|FreeText, index: number, final: boolean) => {
+    const submitAnswer = (answer: MultiChoice | FreeText, index: number, final: boolean) => {
         setQuestions((prev) => {
-            const exist = prev.find((a) => a.id === answer.id);
+            const exist = prev.find((question) => question.id === answer.id);
             if (exist) {
-                return prev.map((a) => {
-                    if (a.id === answer.id) {
+                return prev.map((question) => {
+                    if (question.id === answer.id) {
                         return answer
                     } else {
-                        return a
+                        return question
                     }
                 })
             }
@@ -65,7 +60,7 @@ const FillQuestionnaire = ({close, fields, saveQuestionnaire}: Props) => {
         if (final) {
             setReady(true);
         } else {
-            setActive(index+1);
+            setActive(index + 1);
         }
     }
 
@@ -89,7 +84,7 @@ const FillQuestionnaire = ({close, fields, saveQuestionnaire}: Props) => {
                 <Regard onClick={close}/>
             </div>
 
-            <ProgressBar completed={(active/questions.length)*100 || 0}/>
+            <ProgressBar completed={(active / questions.length) * 100 || 0}/>
 
             {questions.map((item, index: number) => {
                 const Component = components[item.type];

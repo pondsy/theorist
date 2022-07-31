@@ -31,7 +31,6 @@ const Questionnaires = () => {
     }
 
 
-
     return (
         <div className={styles.page}>
             <div className={styles.container}>

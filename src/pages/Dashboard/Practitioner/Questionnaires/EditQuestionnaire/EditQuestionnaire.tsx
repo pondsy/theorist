@@ -36,9 +36,9 @@ const EditQuestionnaire = ({close, fields, saveQuestionnaire}: Props) => {
     });
     const [addQuestion, setAddQuestion] = useState<QuestionType>();
     const [editQuestion, setEditQuestion] = useState<Question>();
-    const [errors, setErrors] = useState<{title?: string, questions?: string}>();
+    const [errors, setErrors] = useState<{ title?: string, questions?: string }>();
 
-    const getQuestionOptions = (question: FreeText|MultiChoice) => {
+    const getQuestionOptions = (question: FreeText | MultiChoice) => {
         if (question.type === QuestionType.multiChoice) {
             return `(${(question as MultiChoice).options?.map((item) => item.answer).join(", ")})`;
         }
@@ -81,52 +81,65 @@ const EditQuestionnaire = ({close, fields, saveQuestionnaire}: Props) => {
 
             <div className={styles.labeledInput}>
                 <h3>Title</h3>
-                <input className={`${styles.input} ${styles.title} ${errors?.title && sharedStyles.error}`} value={questionnaire.title} onChange={(e) => setQuestionnaire((prev) => ({...prev, title: e.target.value}))}/>
+                <input className={`${styles.input} ${styles.title} ${errors?.title && sharedStyles.error}`}
+                       value={questionnaire.title}
+                       onChange={(e) => setQuestionnaire((prev) => ({...prev, title: e.target.value}))}/>
                 {errors?.title && <ErrorMessage error={errors?.title}/>}
             </div>
 
             <Divider/>
 
             <div className={`${styles.labeledInput}  ${errors?.questions && sharedStyles.error}`}>
-            <h3>Questions</h3>
-                {questionnaire.questions?.map((question: FreeText|MultiChoice, id) => (
+                <h3>Questions</h3>
+                {questionnaire.questions?.map((question: FreeText | MultiChoice, id) => (
                     <React.Fragment key={id}>
-                    <div className={styles.inputWithButtons}>
-                        <label className={styles.questionCount}>{id+1}</label>
-                        {editQuestion?.id === question.id ?
-                            <React.Fragment>
-                                {editQuestion.type === QuestionType.freeText ? <FreeTextQuestion
-                                className={styles.labeledInput}
-                                values={question as FreeText}
-                                addQuestion={(question) => setQuestionnaire((prev) => ({
-                                    ...prev,
-                                    questions: prev.questions.map((q) => {
-                                        if (q.id === question.id) {
-                                            return question
-                                        }
-                                        return q;
-                                    })}))}
-                                removeQuestion={(id: string) => setQuestionnaire((prev) => ({...prev, questions: prev.questions.filter(q => q.id !== id)}))}
-                            /> : <MultiChoiceQuestion
-                                    className={styles.labeledInput}
-                                    values={question as MultiChoice}
-                                    addQuestion={(question) => setQuestionnaire((prev) => ({
-                                        ...prev,
-                                        questions: prev.questions.map((q) => {
-                                            if (q.id === question.id) {
-                                                return question
-                                            }
-                                            return q;
-                                        })
-                                    }))}
-                                    removeQuestion={(id: string) => setQuestionnaire((prev) => ({...prev, questions: prev.questions.filter(q => q.id !== id)}))}/>}
-                            </React.Fragment> : question.title}
-                        {editQuestion?.id !== question.id && <span className={sharedStyles.inlineIconButtons}>
+                        <div className={styles.inputWithButtons}>
+                            <label className={styles.questionCount}>{id + 1}</label>
+                            {editQuestion?.id === question.id ?
+                                <React.Fragment>
+                                    {editQuestion.type === QuestionType.freeText ? <FreeTextQuestion
+                                        className={styles.labeledInput}
+                                        values={question as FreeText}
+                                        addQuestion={(question) => setQuestionnaire((prev) => ({
+                                            ...prev,
+                                            questions: prev.questions.map((q) => {
+                                                if (q.id === question.id) {
+                                                    return question
+                                                }
+                                                return q;
+                                            })
+                                        }))}
+                                        removeQuestion={(id: string) => setQuestionnaire((prev) => ({
+                                            ...prev,
+                                            questions: prev.questions.filter(q => q.id !== id)
+                                        }))}
+                                    /> : <MultiChoiceQuestion
+                                        className={styles.labeledInput}
+                                        values={question as MultiChoice}
+                                        addQuestion={(question) => setQuestionnaire((prev) => ({
+                                            ...prev,
+                                            questions: prev.questions.map((q) => {
+                                                if (q.id === question.id) {
+                                                    return question
+                                                }
+                                                return q;
+                                            })
+                                        }))}
+                                        removeQuestion={(id: string) => setQuestionnaire((prev) => ({
+                                            ...prev,
+                                            questions: prev.questions.filter(q => q.id !== id)
+                                        }))}/>}
+                                </React.Fragment> : question.title}
+                            {editQuestion?.id !== question.id && <span className={sharedStyles.inlineIconButtons}>
                             <Edit onClick={() => setEditQuestion(question)}/>
-                            <Delete onClick={() => setQuestionnaire((prev) => ({...prev, questions: prev.questions.filter(q => q.id !== question.id)}))}/>
+                            <Delete onClick={() => setQuestionnaire((prev) => ({
+                                ...prev,
+                                questions: prev.questions.filter(q => q.id !== question.id)
+                            }))}/>
                         </span>}
-                    </div>
-                    {question.type === QuestionType.multiChoice && <div className={styles.questionOptions}>{getQuestionOptions(question)}</div>}
+                        </div>
+                        {question.type === QuestionType.multiChoice &&
+                            <div className={styles.questionOptions}>{getQuestionOptions(question)}</div>}
                     </React.Fragment>
                 ))}
                 {errors?.questions && <ErrorMessage error={errors?.questions}/>}
@@ -135,21 +148,35 @@ const EditQuestionnaire = ({close, fields, saveQuestionnaire}: Props) => {
             {addQuestion === QuestionType.freeText && <FreeTextQuestion
                 className={styles.labeledInput}
                 values={{id: uuid(), title: '', type: QuestionType.freeText, answer: ''}}
-                addQuestion={(question) => setQuestionnaire((prev) => ({...prev, questions: [...prev.questions, question]}))}
-                removeQuestion={(id: string) => setQuestionnaire((prev) => ({...prev, questions: prev.questions.filter(q => q.id !== id)}))}
+                addQuestion={(question) => setQuestionnaire((prev) => ({
+                    ...prev,
+                    questions: [...prev.questions, question]
+                }))}
+                removeQuestion={(id: string) => setQuestionnaire((prev) => ({
+                    ...prev,
+                    questions: prev.questions.filter(q => q.id !== id)
+                }))}
             />}
 
             {addQuestion === QuestionType.multiChoice && <MultiChoiceQuestion
                 className={styles.labeledInput}
                 values={{id: uuid(), title: '', type: QuestionType.multiChoice, options: []}}
-                addQuestion={(question) => setQuestionnaire((prev) => ({...prev, questions: [...prev.questions, question]}))}
-                removeQuestion={(id: string) => setQuestionnaire((prev) => ({...prev, questions: prev.questions.filter(q => q.id !== id)}))}
+                addQuestion={(question) => setQuestionnaire((prev) => ({
+                    ...prev,
+                    questions: [...prev.questions, question]
+                }))}
+                removeQuestion={(id: string) => setQuestionnaire((prev) => ({
+                    ...prev,
+                    questions: prev.questions.filter(q => q.id !== id)
+                }))}
             />}
 
             {!addQuestion && !editQuestion && <React.Fragment>
-                <Button icon={<Add/>} color='none' hoverColor="none" padding={`5px ${questionnaire.questions.length ? '40px' : '20px'}`} text="free text"
+                <Button icon={<Add/>} color='none' hoverColor="none"
+                        padding={`5px ${questionnaire.questions.length ? '40px' : '20px'}`} text="free text"
                         onClick={() => setAddQuestion(QuestionType.freeText)}/>
-                <Button icon={<Add/>} color='none' hoverColor="none" padding={`5px ${questionnaire.questions.length ? '40px' : '20px'}`} text="multi-choice"
+                <Button icon={<Add/>} color='none' hoverColor="none"
+                        padding={`5px ${questionnaire.questions.length ? '40px' : '20px'}`} text="multi-choice"
                         onClick={() => setAddQuestion(QuestionType.multiChoice)}/>
             </React.Fragment>
             }

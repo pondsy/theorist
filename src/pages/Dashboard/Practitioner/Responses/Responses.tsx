@@ -9,8 +9,8 @@ import ViewResponses from "../../../../components/ViewResponses";
 
 const Responses = () => {
 
-    const practitioner = useAppSelector(state => state.practitioner);
-    const {clients, responses} = practitioner;
+    const clients = useAppSelector(state => state.practitioner.clients as Required<Client[]>);
+    const responses = useAppSelector(state => state.practitioner.responses as Required<ClientQuestionnaire[]>);
 
     const [active, setActive] = useState<ClientQuestionnaire>();
     const [client, setClient] = useState<Client>();
@@ -46,7 +46,7 @@ const Responses = () => {
                     <ViewResponses
                         close={() => setActive(undefined)}
                         fields={active}
-                        client={client!}
+                        client={client}
                     />
                 }
             />}

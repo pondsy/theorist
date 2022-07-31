@@ -15,9 +15,9 @@ const Login = () => {
     const {validateEmail, validatePassword} = useValidation()
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [form, setForm] = useState<{ email: string, password: string}>({email: '', password: ''});
-    const [errors, setErrors] = useState<{email: string|undefined, password: string|undefined}>()
-    const role = (state as {role: string}).role;
+    const [form, setForm] = useState<{ email: string, password: string }>({email: '', password: ''});
+    const [errors, setErrors] = useState<{ email: string | undefined, password: string | undefined }>()
+    const role = (state as { role: string }).role;
 
     const submitLogin = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
@@ -49,9 +49,11 @@ const Login = () => {
         <div className={styles.page}>
             <form className={styles.form}>
                 <h1>{`Login as ${role}`}</h1>
-                <input className={styles.input} type="email" onChange={(e) => setForm((prev) => ({...prev, email: e.target.value}))}/>
+                <input className={styles.input} type="email"
+                       onChange={(e) => setForm((prev) => ({...prev, email: e.target.value}))}/>
                 {errors?.email && <ErrorMessage error={errors.email}/>}
-                <input className={styles.input} type="password" onChange={(e) => setForm((prev) => ({...prev, password: e.target.value}))}/>
+                <input className={styles.input} type="password"
+                       onChange={(e) => setForm((prev) => ({...prev, password: e.target.value}))}/>
                 {errors?.password && <ErrorMessage error={errors.password}/>}
                 <Button text="Submit" onClick={(e) => submitLogin(e)}/>
             </form>

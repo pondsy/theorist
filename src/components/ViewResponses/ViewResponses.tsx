@@ -28,19 +28,22 @@ const ViewResponses = ({close, fields, client}: Props) => {
 
             <div className={styles.labeledInput}>
                 {fields.questions?.map((question: FreeText | MultiChoice, id) => (
-                    <React.Fragment key={id}>
-                        <div className={styles.userAnswers}>
-                            <div>
-                                <label className={styles.questionCount}>{id + 1}</label>
-                                <label>{question.title}</label>
+                        <React.Fragment key={id}>
+                            <div className={styles.userAnswers}>
+                                <div>
+                                    <label className={styles.questionCount}>{id + 1}</label>
+                                    <label>{question.title}</label>
+                                </div>
+                                <div>
+                                    {question.type === QuestionType.freeText &&
+                                        <div className={styles.answer}>{(question as FreeText).answer}</div>}
+                                    {question.type === QuestionType.multiChoice && <div
+                                        className={styles.answer}>{(question as MultiChoice).options.find((option) => option.selected)?.answer}</div>}
+                                </div>
                             </div>
-                            <div>
-                                {question.type === QuestionType.freeText && <div className={styles.answer}>{(question as FreeText).answer}</div>}
-                                {question.type === QuestionType.multiChoice && <div className={styles.answer}>{(question as MultiChoice).options.find((o) => o.selected)!.answer}</div>}
-                            </div>
-                        </div>
-                    </React.Fragment>
-                ))}
+                        </React.Fragment>
+                    )
+                )}
             </div>
 
         </React.Fragment>

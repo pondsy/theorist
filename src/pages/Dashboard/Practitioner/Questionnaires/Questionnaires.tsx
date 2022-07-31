@@ -23,7 +23,7 @@ export interface TableData {
     col4: number;
     col5: number;
     col6: string;
-    col7: string;
+    col7?: string;
 }
 
 const Questionnaires = () => {
@@ -41,7 +41,8 @@ const Questionnaires = () => {
 
     const data = useMemo<TableData[]>(() => {
         return editQuestionnaires.map((questionnaire) => {
-            const assigned = clients.filter((client) => client.questionnaire.available.includes(questionnaire.id!)).length || 0;
+            const id = questionnaire?.id;
+            const assigned = id ? clients.filter((client) => client.questionnaire.available.includes(id)).length : 0;
             const filledIn = responses.filter((response) => response.questionnaireId === questionnaire.id).length || 0;
             const rate = filledIn / assigned || 0;
 
@@ -53,7 +54,7 @@ const Questionnaires = () => {
                     col4: assigned,
                     col5: filledIn,
                     col6: `${(rate * 100).toFixed(2)} %`,
-                    col7: questionnaire.id!
+                    col7: questionnaire?.id
                 }
             ]
         }).flat();

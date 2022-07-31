@@ -32,18 +32,18 @@ const MultiChoiceAnswer = ({className, values, index, length, addAnswer, goBack}
         if (values) setForm(values);
     }, [values])
 
-    const selectAnswer = (option: Option) => {
+    const selectAnswer = (selected: Option) => {
         const data = {
             ...form,
-            options: form.options?.map((o) => {
-                if (o.id === option.id) {
+            options: form.options?.map((option) => {
+                if (option.id === selected.id) {
                     return {
-                        ...option,
-                        selected: !o.selected
+                        ...selected,
+                        selected: !option.selected
                     }
                 }
                 return {
-                    ...o,
+                    ...option,
                     selected: false
                 };
             })
@@ -56,11 +56,12 @@ const MultiChoiceAnswer = ({className, values, index, length, addAnswer, goBack}
     return (
         <div key={form.id} className={className}>
             <label>{form?.title}</label>
-            <div>Question {index+1}/{length}</div>
+            <div>Question {index + 1}/{length}</div>
 
             <div className={styles.questions}>
                 {form.options && form.options.map((option, id) => (
-                    <label key={id} className={`${sharedStyles.inputWithButtons} ${styles.selectable} ${option.selected && styles.selected}`}>
+                    <label key={id}
+                           className={`${sharedStyles.inputWithButtons} ${styles.selectable} ${option.selected && styles.selected}`}>
                         <input
                             type="radio"
                             name="option"
@@ -70,13 +71,16 @@ const MultiChoiceAnswer = ({className, values, index, length, addAnswer, goBack}
                         />
                         <h4>{option.answer}</h4>
                     </label>
-            ))}
+                ))}
             </div>
 
             {<div className={sharedStyles.footerButtons}>
-                {index !== 0 && <Back style={{marginRight: 'auto'}} onClick={() => goBack(index-1)}/>}
-                {index !== length-1 && <Next className={`${!selected ? styles.disabled : ''}`} style={{marginLeft: 'auto'}} onClick={() => selected && addAnswer(form, false)}/>}
-                {index === length-1 && <Button disabled={!selected} style={{marginLeft: 'auto'}} text={'Save'} onClick={() => addAnswer(form, true)}/>}
+                {index !== 0 && <Back style={{marginRight: 'auto'}} onClick={() => goBack(index - 1)}/>}
+                {index !== length - 1 &&
+                    <Next className={`${!selected ? styles.disabled : ''}`} style={{marginLeft: 'auto'}}
+                          onClick={() => selected && addAnswer(form, false)}/>}
+                {index === length - 1 && <Button disabled={!selected} style={{marginLeft: 'auto'}} text={'Save'}
+                                                 onClick={() => addAnswer(form, true)}/>}
             </div>}
         </div>
     )

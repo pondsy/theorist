@@ -1,7 +1,7 @@
-import {TypedUseSelectorHook, useSelector } from 'react-redux';
-import {createStore, applyMiddleware, combineReducers} from 'redux';
-import { persistStore, persistReducer } from 'redux-persist';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import {TypedUseSelectorHook, useSelector} from 'react-redux';
+import {applyMiddleware, combineReducers, createStore} from 'redux';
+import {persistReducer, persistStore} from 'redux-persist';
+import {composeWithDevTools} from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import storage from 'redux-persist/lib/storage';
 import auth from "./auth/authReducer";
@@ -26,4 +26,4 @@ const store = createStore(presistedReducer, composeWithDevTools(applyMiddleware(
 const persistor = persistStore(store);
 
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-export { persistor, store };
+export {persistor, store};

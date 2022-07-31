@@ -23,7 +23,7 @@ const FreeTextAnswer = ({className, values, index, length, addAnswer, goBack}: P
     const id = useId();
     const {validateAnswer} = useValidation();
 
-    const [errors, setErrors] = useState<{answer?: string}>();
+    const [errors, setErrors] = useState<{ answer?: string }>();
     const [form, setForm] = useState<FreeText>({
         id,
         title: '',
@@ -57,7 +57,7 @@ const FreeTextAnswer = ({className, values, index, length, addAnswer, goBack}: P
     return (
         <div key={form.id} className={className}>
             <label>{form.title}</label>
-            <div>Question {index+1}/{length}</div>
+            <div>Question {index + 1}/{length}</div>
 
             <textarea
                 name={`question-${form.id}`}
@@ -66,14 +66,17 @@ const FreeTextAnswer = ({className, values, index, length, addAnswer, goBack}: P
                 onKeyDown={(e) => e.key === 'Enter' && addToForm()}
                 value={form?.answer}
                 className={styles.textArea}
-                onChange={(e)=> setForm((prev) => ({...prev, answer: e.target.value}))}
+                onChange={(e) => setForm((prev) => ({...prev, answer: e.target.value}))}
             />
             {errors?.answer && <ErrorMessage error={errors?.answer}/>}
 
             {<div className={sharedStyles.footerButtons}>
-                {index !== 0 && <Back style={{marginRight: 'auto'}} onClick={() => goBack(index-1)}/>}
-                {index !== length-1 && <Next className={`${!form.answer ? styles.disabled : ''}`} style={{marginLeft: 'auto'}} onClick={() => form.answer && addToForm()}/>}
-                {index === length-1 && <Button disabled={!form.answer} style={{marginLeft: 'auto'}} text={'Save'} onClick={() => addToForm(true)}/>}
+                {index !== 0 && <Back style={{marginRight: 'auto'}} onClick={() => goBack(index - 1)}/>}
+                {index !== length - 1 &&
+                    <Next className={`${!form.answer ? styles.disabled : ''}`} style={{marginLeft: 'auto'}}
+                          onClick={() => form.answer && addToForm()}/>}
+                {index === length - 1 && <Button disabled={!form.answer} style={{marginLeft: 'auto'}} text={'Save'}
+                                                 onClick={() => addToForm(true)}/>}
             </div>}
         </div>
     )

@@ -1,8 +1,4 @@
 import React, {useEffect, useId, useState} from "react";
-import styles from "../FillQuestionnaire/FillQuestionnaire.module.scss";
-import {ReactComponent as Save} from "../../../../../resources/svgs/save.svg";
-import sharedStyles from "../../../../../styles/shared.module.scss";
-import {ReactComponent as Delete} from "../../../../../resources/svgs/delete.svg";
 import {Option} from "../../../../../store/practitioner/practitionerTypes";
 import useValidation from "../../../../../hooks/useValidation";
 import ErrorMessage from "../../../../../components/ErrorMessage";
@@ -20,7 +16,7 @@ const MultiChoiceOption = ({className, values, addAnswer, removeAnswer}: Props) 
     const id = useId();
     const {validateQuestion} = useValidation();
 
-    const [errors, setErrors] = useState<{answer?: string}>();
+    const [errors, setErrors] = useState<{ answer?: string }>();
     const [form, setForm] = useState<Option>({
         id,
         answer: '',

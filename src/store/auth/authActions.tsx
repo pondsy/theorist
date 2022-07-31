@@ -4,12 +4,12 @@ import {AuthState} from "./authTypes";
 import AuthService from "./authService";
 
 export const setAuth = (user: AuthState) => async (dispatch: AppDispatch) => {
-  dispatch({
-    type: SET_AUTH,
-    payload: user,
-  });
+    dispatch({
+        type: SET_AUTH,
+        payload: user,
+    });
 };
 
 export const removeAuth = () => async () => {
-  await AuthService.logout();
+    await AuthService.logout();
 };
