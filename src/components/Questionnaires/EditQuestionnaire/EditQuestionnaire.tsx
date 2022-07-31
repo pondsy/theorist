@@ -32,9 +32,7 @@ const EditQuestionnaire = ({close, fields, saveQuestionnaire}: Props) => {
         id: null,
         title: '',
         questions: [],
-        added: '',
-        clients: [],
-        filledIn: []
+        added: ''
     });
     const [addQuestion, setAddQuestion] = useState<QuestionType>();
     const [editQuestion, setEditQuestion] = useState<Question>();

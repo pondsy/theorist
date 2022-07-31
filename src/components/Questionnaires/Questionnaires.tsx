@@ -1,6 +1,6 @@
 import styles from './Questionnaires.module.scss';
 import sharedStyles from '../../styles/shared.module.scss';
-import React, {useEffect, useLayoutEffect, useMemo, useState} from 'react';
+import React, {useLayoutEffect, useMemo, useState} from 'react';
 import {Column} from "react-table";
 import {ReactComponent as Add} from "../../resources/svgs/add.svg";
 import {ReactComponent as Confirm} from "../../resources/svgs/confirm.svg";
@@ -24,8 +24,6 @@ export interface Questionnaire {
     title: string;
     questions: (FreeText|MultiChoice)[];
     added: string;
-    clients?: string[];
-    filledIn?: string[];
     practitioner?: string;
 }
 
@@ -39,8 +37,8 @@ export interface TableData {
     col1: string;
     col2: number;
     col3: string;
-    col4: string[];
-    col5: string[];
+    col4: number;
+    col5: number;
     col6: string;
     col7: string;
 }
@@ -48,23 +46,29 @@ export interface TableData {
 const Questionnaires = () => {
 
     const dispatch = useDispatch();
+
     const auth = useAppSelector((state) => state.auth as Required<AuthState>);
-    const userData = useAppSelector(state => state.practitioner.questionnaires);
-    const [editQuestionnaires, setEditQuestionnaires] = useState<Questionnaire[]>(userData);
+    const practitioner = useAppSelector(state => state.practitioner);
+    const {questionnaires, clients} = practitioner;
+
+    const [editQuestionnaires, setEditQuestionnaires] = useState<Questionnaire[]>(questionnaires);
     const [edit, setEdit] = useState<Questionnaire>();
     const [add, setAdd] = useState<boolean>();
     const [remove, setRemove] = useState<Questionnaire>();
 
     const data = useMemo<TableData[]>(() => {
         return editQuestionnaires.map((questionnaire) => {
-            const rate = questionnaire?.filledIn?.length && questionnaire?.clients?.length ? questionnaire.filledIn.length / questionnaire.clients.length : 0;
+            const assigned = clients.filter((client) => client.questionnaire.new.includes(questionnaire.id!)).length || 0;
+            const filledIn = clients.filter((client) => client.questionnaire.ready.includes(questionnaire.id!)).length || 0;
+            const rate = filledIn / assigned || 0;
+
             return [
                 {
                     col1: questionnaire.title,
                     col2: questionnaire.questions.length,
                     col3: questionnaire.added,
-                    col4: questionnaire.clients||[],
-                    col5: questionnaire.filledIn||[],
+                    col4: assigned,
+                    col5: filledIn,
                     col6: `${(rate).toFixed(2)} %`,
                     col7: questionnaire.id!
                 }
@@ -95,12 +99,12 @@ const Questionnaires = () => {
         {
             Header: 'Clients',
             accessor: 'col4',
-            Cell: (cell) => <div>{cell.value.length}</div>
+            Cell: (cell) => <div>{cell.value}</div>
         },
         {
             Header: 'Filled in',
             accessor: 'col5',
-            Cell: (cell) => <div>{cell.value.length}</div>
+            Cell: (cell) => <div>{cell.value}</div>
         },
         {
             Header: 'Rate',
@@ -126,14 +130,10 @@ const Questionnaires = () => {
     ]), [editQuestionnaires, remove]);
 
     useLayoutEffect(() => {
-        dispatch(getQuestionnaires(auth.user.uid));
-    }, [dispatch, auth.user.uid])
-
-    useLayoutEffect(() => {
-        setEditQuestionnaires(userData);
+        setEditQuestionnaires(questionnaires);
         setAdd(undefined);
         setEdit(undefined);
-    }, [userData])
+    }, [questionnaires])
 
     return (
         <div className={styles.page}>

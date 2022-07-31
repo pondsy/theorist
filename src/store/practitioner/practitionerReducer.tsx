@@ -1,9 +1,16 @@
 import {createReducer, Reducer} from "@reduxjs/toolkit";
-import {GET_QUESTIONNAIRES, SAVE_QUESTIONNAIRE, DELETE_QUESTIONNAIRE} from "./practitionerConstants";
+import {
+  GET_QUESTIONNAIRES,
+  SAVE_QUESTIONNAIRE,
+  ASSIGN_QUESTIONNAIRE,
+  DELETE_QUESTIONNAIRE,
+  GET_CLIENTS
+} from "./practitionerConstants";
 import {PractitionerState} from "./practitionerTypes";
 
 const initialState: PractitionerState = {
-  questionnaires: []
+  questionnaires: [],
+  clients: []
 };
 
 const practitioner: Reducer<PractitionerState> = createReducer(initialState, {
@@ -23,6 +30,18 @@ const practitioner: Reducer<PractitionerState> = createReducer(initialState, {
     return {
       ...state,
       questionnaires: action.payload
+    }
+  },
+  [GET_CLIENTS]: (state, action) => {
+    return {
+      ...state,
+      clients: action.payload
+    }
+  },
+  [ASSIGN_QUESTIONNAIRE]: (state, action) => {
+    return {
+      ...state,
+      clients: action.payload
     }
   },
 });

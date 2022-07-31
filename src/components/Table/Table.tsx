@@ -1,11 +1,10 @@
 import styles from './Table.module.scss';
 import React from 'react'
 import {useSortBy, useTable, Column} from "react-table";
-import {TableData} from "../Questionnaires/Questionnaires";
 
 interface TableProps {
-    columns: Column<TableData>[];
-    data: TableData[];
+    columns: Column<any>[];
+    data: any[];
 }
 
 function Table({columns, data}: TableProps): JSX.Element {
