@@ -6,7 +6,7 @@ export interface AuthState {
   data?: UserData;
 }
 
-interface UserData {
+export interface UserData {
   email: string;
   name: string;
   birthdate: string;

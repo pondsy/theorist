@@ -6,19 +6,22 @@ interface Props {
     color?: string;
     hoverColor?: string;
     icon?: JSX.Element;
+    style?: React.CSSProperties;
     onClick: (value?: any) => void;
     padding?: string;
+    disabled?: boolean;
 }
 
-const Button = ({text, color = 'var(--color-action)', hoverColor = 'var(--color-secondary)', padding, icon, onClick}: Props) => {
+const Button = ({text, color = 'var(--color-action)', hoverColor = 'var(--color-secondary)', style, padding, icon, onClick, disabled}: Props) => {
 
     const [hovering, setHovering] = useState(false);
 
     return (
         <button
+            disabled={disabled}
             className={styles.button}
             onClick={onClick}
-            style={{background: hovering ? hoverColor : color, padding}}
+            style={{background: hovering ? hoverColor : color, padding, ...style}}
             onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}
         >

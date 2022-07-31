@@ -32,7 +32,7 @@ const Questionnaires = () => {
 
     const auth = useAppSelector((state) => state.auth as Required<AuthState>);
     const practitioner = useAppSelector(state => state.practitioner);
-    const {questionnaires, clients} = practitioner;
+    const {questionnaires, clients, responses} = practitioner;
 
     const [editQuestionnaires, setEditQuestionnaires] = useState<Questionnaire[]>(questionnaires);
     const [edit, setEdit] = useState<Questionnaire>();
@@ -41,8 +41,8 @@ const Questionnaires = () => {
 
     const data = useMemo<TableData[]>(() => {
         return editQuestionnaires.map((questionnaire) => {
-            const assigned = clients.filter((client) => client.questionnaire.new.includes(questionnaire.id!)).length || 0;
-            const filledIn = clients.filter((client) => client.questionnaire.ready.includes(questionnaire.id!)).length || 0;
+            const assigned = clients.filter((client) => client.questionnaire.available.includes(questionnaire.id!)).length || 0;
+            const filledIn = responses.filter((response) => response.questionnaireId === questionnaire.id).length || 0;
             const rate = filledIn / assigned || 0;
 
             return [
@@ -52,12 +52,12 @@ const Questionnaires = () => {
                     col3: questionnaire.added,
                     col4: assigned,
                     col5: filledIn,
-                    col6: `${(rate).toFixed(2)} %`,
+                    col6: `${(rate * 100).toFixed(2)} %`,
                     col7: questionnaire.id!
                 }
             ]
         }).flat();
-    }, [editQuestionnaires]);
+    }, [editQuestionnaires, responses, clients]);
 
     const columns = useMemo<Column<TableData>[]>(() => ([
         {

@@ -29,7 +29,6 @@ const EditQuestionnaire = ({close, fields, saveQuestionnaire}: Props) => {
 
     const {validateTitle, validateQuestions} = useValidation();
     const [questionnaire, setQuestionnaire] = useState<Questionnaire>({
-        id: null,
         title: '',
         questions: [],
         added: ''
@@ -43,6 +42,7 @@ const EditQuestionnaire = ({close, fields, saveQuestionnaire}: Props) => {
             return `(${(question as MultiChoice).options?.map((item) => item.answer).join(", ")})`;
         }
     }
+
     const save = () => {
         const errors = {
             title: validateTitle(questionnaire.title),
@@ -96,7 +96,7 @@ const EditQuestionnaire = ({close, fields, saveQuestionnaire}: Props) => {
                             <React.Fragment>
                                 {editQuestion.type === QuestionType.freeText ? <FreeTextQuestion
                                 className={styles.labeledInput}
-                                values={question}
+                                values={question as FreeText}
                                 addQuestion={(question) => setQuestionnaire((prev) => ({
                                     ...prev,
                                     questions: prev.questions.map((q) => {
@@ -108,7 +108,7 @@ const EditQuestionnaire = ({close, fields, saveQuestionnaire}: Props) => {
                                 removeQuestion={(id: string) => setQuestionnaire((prev) => ({...prev, questions: prev.questions.filter(q => q.id !== id)}))}
                             /> : <MultiChoiceQuestion
                                     className={styles.labeledInput}
-                                    values={question}
+                                    values={question as MultiChoice}
                                     addQuestion={(question) => setQuestionnaire((prev) => ({
                                         ...prev,
                                         questions: prev.questions.map((q) => {

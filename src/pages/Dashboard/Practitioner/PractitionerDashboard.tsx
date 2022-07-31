@@ -3,7 +3,7 @@ import Questionnaires from "./Questionnaires";
 import Clients from "./Clients";
 import Responses from "./Responses";
 import {useEffect, useState} from "react";
-import {getClients, getQuestionnaires} from "../../../store/practitioner/practitionerActions";
+import {getClientResponses, getClients, getQuestionnaires} from "../../../store/practitioner/practitionerActions";
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../../store/store";
 import {AuthState} from "../../../store/auth/authTypes";
@@ -26,6 +26,7 @@ const PractitionerDashboard = () => {
     useEffect(() => {
         dispatch(getClients(auth.user.uid));
         dispatch(getQuestionnaires(auth.user.uid));
+        dispatch(getClientResponses(auth.user.uid))
     }, [dispatch, auth.user.uid])
 
     return (

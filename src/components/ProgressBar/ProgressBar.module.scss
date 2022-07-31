@@ -1,0 +1,14 @@
+.container {
+  height: 5px;
+  background-color: var(--color-background);
+  border-radius: 50px;
+  margin: 5px;
+}
+
+.filler {
+  height: 100%;
+  background-color: var(--color-action);
+  border-radius: inherit;
+  text-align: right;
+  transition: width 1s ease-in-out;
+}

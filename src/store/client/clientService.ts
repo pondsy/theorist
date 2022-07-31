@@ -1,10 +1,14 @@
-import firebase from "firebase/compat/app";
 import {Firebase} from "../../firebase/service";
+import {ClientQuestionnaire} from "./clientTypes";
 
 class ClientService {
 
-    static async getQuestionnaires(uid: string): Promise<any> {
-        return await Firebase.getQuestionnaires(uid);
+    static async getQuestionnaires(ids: string[], clientId: string): Promise<ClientQuestionnaire[]> {
+        return await Firebase.getClientQuestionnaires(ids, clientId);
+    }
+
+    static async saveClientAnswer(questionnaire: ClientQuestionnaire): Promise<ClientQuestionnaire[]> {
+        return await Firebase.saveClientAnswer(questionnaire);
     }
 }
 

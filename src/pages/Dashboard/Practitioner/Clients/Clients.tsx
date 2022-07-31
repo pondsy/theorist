@@ -17,7 +17,7 @@ export interface TableData {
     col2: string;
     col3: string;
     col4: string[];
-    col5: string[];
+    col5: number;
     col6: Client;
 }
 
@@ -26,25 +26,28 @@ const Clients = () => {
     const dispatch = useDispatch()
 
     const auth = useAppSelector((state) => state.auth as Required<AuthState>);
-    const questionnaires = useAppSelector(state => state.practitioner.questionnaires);
-    const clients = useAppSelector(state => state.practitioner.clients);
+    const practitioner = useAppSelector(state => state.practitioner);
+    const {clients, questionnaires, responses} = practitioner;
 
     const [assigning, setAssigning] = useState<Client>();
 
     const data = useMemo<TableData[]>(() => {
         return clients.map((client) => {
+
+            const ready = responses.filter((response) => response.clientId === client.id).length || 0;
+
             return [
                 {
                     col1: client.name,
                     col2: client.email,
                     col3: client.birthdate,
-                    col4: client.questionnaire.new,
-                    col5: client.questionnaire.ready,
+                    col4: client.questionnaire.available,
+                    col5: ready,
                     col6: client
                 }
             ]
         }).flat();
-    }, [clients]);
+    }, [clients, responses]);
 
     const columns = useMemo<Column<TableData>[]>(() => ([
         {
@@ -74,7 +77,7 @@ const Clients = () => {
         {
             Header: 'Ready',
             accessor: 'col5',
-            Cell: (cell) => <div>{cell.value.length}</div>
+            Cell: (cell) => <div>{cell.value}</div>
         },
         {
             Header: 'Assign',
@@ -103,10 +106,10 @@ const Clients = () => {
             ...assigning,
             questionnaire: {
                 ...assigning.questionnaire,
-                new: [
+                available: [
                     ...e.target.checked ?
-                        assigning.questionnaire.new.concat(e.target.value) :
-                        assigning.questionnaire.new.filter((id) => id !== e.target.value)
+                        assigning.questionnaire.available.concat(e.target.value) :
+                        assigning.questionnaire.available.filter((id) => id !== e.target.value)
                 ],
             }
         };
@@ -122,13 +125,13 @@ const Clients = () => {
                 <Modal open={!!assigning} className={styles.modal} content={<React.Fragment>
                     <h2>Available to assign</h2>
                     {questionnaires.map((questionnaire, id) => (
-                        <label key={id} className={styles.checkboxContainer}>
+                        <label key={id} className={sharedStyles.checkboxContainer}>
                             <input
                                 type="checkbox"
-                                checked={assigning?.questionnaire.new.includes(questionnaire.id!)}
+                                checked={assigning?.questionnaire.available.includes(questionnaire.id!)}
                                 value={questionnaire.id!}
                                 onChange={(e) => handleChange(e)}
-                                className={styles.checkbox}
+                                className={sharedStyles.checkbox}
                             />
                             <h4>{questionnaire.title}</h4>
                         </label>
