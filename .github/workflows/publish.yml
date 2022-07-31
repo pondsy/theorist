@@ -33,6 +33,7 @@ jobs:
     - run: npm run build --if-present
 
       env:
+        CI: false
         REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
         REACT_APP_AUTH_DOMAIN: ${{ secrets.REACT_APP_AUTH_DOMAIN }}
         REACT_APP_PROJECT_ID: ${{ secrets.REACT_APP_PROJECT_ID }}
