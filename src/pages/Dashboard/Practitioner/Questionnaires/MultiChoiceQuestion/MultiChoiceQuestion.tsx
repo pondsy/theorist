@@ -1,21 +1,16 @@
 import React, {useEffect, useId, useState} from "react";
 import styles from "../EditQuestionnaire/EditQuestionnaire.module.scss";
-import {QuestionType} from "../EditQuestionnaire/EditQuestionnaire";
 import {ReactComponent as Save} from "../../../resources/svgs/save.svg";
 import sharedStyles from "../../../styles/shared.module.scss";
 import {ReactComponent as Delete} from "../../../resources/svgs/delete.svg";
-import Button from "../../Button";
 import {ReactComponent as Add} from "../../../resources/svgs/add.svg";
-import {Option} from "../MultiChoiceOption/MultiChoiceOption";
 import MultiChoiceOption from "../MultiChoiceOption";
 import {ReactComponent as Edit} from "../../../resources/svgs/edit.svg";
-import {Question} from "../Questionnaires";
-import ErrorMessage from "../../ErrorMessage";
-import useValidation from "../../../hooks/useValidation";
+import {MultiChoice, Option, QuestionType} from "../../../../../store/practitioner/practitionerTypes";
+import useValidation from "../../../../../hooks/useValidation";
+import ErrorMessage from "../../../../../components/ErrorMessage";
+import Button from "../../../../../components/Button";
 
-export interface MultiChoice extends Question {
-    options?: Option[]
-}
 
 interface Props {
     className: string;

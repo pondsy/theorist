@@ -1,16 +1,12 @@
 import React, {useEffect, useId, useState} from "react";
 import styles from "../EditQuestionnaire/EditQuestionnaire.module.scss";
-import {QuestionType} from "../EditQuestionnaire/EditQuestionnaire";
 import {ReactComponent as Save} from "../../../resources/svgs/save.svg";
 import sharedStyles from "../../../styles/shared.module.scss";
 import {ReactComponent as Delete} from "../../../resources/svgs/delete.svg";
-import {Question} from "../Questionnaires";
-import useValidation from "../../../hooks/useValidation";
-import ErrorMessage from "../../ErrorMessage";
+import {FreeText, QuestionType} from "../../../../../store/practitioner/practitionerTypes";
+import useValidation from "../../../../../hooks/useValidation";
+import ErrorMessage from "../../../../../components/ErrorMessage";
 
-export interface FreeText extends Question {
-    answer?: string;
-}
 
 interface Props {
     className: string;
