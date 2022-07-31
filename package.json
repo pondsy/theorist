@@ -19,6 +19,7 @@
     "sass": "^1.54.0",
     "sass-loader": "^13.0.2",
     "typescript": "^4.7.4",
+    "uuidv4": "^6.2.13",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

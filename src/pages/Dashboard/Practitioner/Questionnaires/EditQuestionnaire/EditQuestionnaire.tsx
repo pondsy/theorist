@@ -17,6 +17,7 @@ import useValidation from "../../../../../hooks/useValidation";
 import ErrorMessage from "../../../../../components/ErrorMessage";
 import Divider from "../../../../../components/Divider";
 import Button from "../../../../../components/Button";
+import {v4 as uuid} from "uuid";
 
 
 interface Props {
@@ -89,8 +90,8 @@ const EditQuestionnaire = ({close, fields, saveQuestionnaire}: Props) => {
             <div className={`${styles.labeledInput}  ${errors?.questions && sharedStyles.error}`}>
             <h3>Questions</h3>
                 {questionnaire.questions?.map((question: FreeText|MultiChoice, id) => (
-                    <React.Fragment>
-                    <div key={id} className={styles.inputWithButtons}>
+                    <React.Fragment key={id}>
+                    <div className={styles.inputWithButtons}>
                         <label className={styles.questionCount}>{id+1}</label>
                         {editQuestion?.id === question.id ?
                             <React.Fragment>
@@ -133,12 +134,14 @@ const EditQuestionnaire = ({close, fields, saveQuestionnaire}: Props) => {
 
             {addQuestion === QuestionType.freeText && <FreeTextQuestion
                 className={styles.labeledInput}
+                values={{id: uuid(), title: '', type: QuestionType.freeText, answer: ''}}
                 addQuestion={(question) => setQuestionnaire((prev) => ({...prev, questions: [...prev.questions, question]}))}
                 removeQuestion={(id: string) => setQuestionnaire((prev) => ({...prev, questions: prev.questions.filter(q => q.id !== id)}))}
             />}
 
             {addQuestion === QuestionType.multiChoice && <MultiChoiceQuestion
                 className={styles.labeledInput}
+                values={{id: uuid(), title: '', type: QuestionType.multiChoice, options: []}}
                 addQuestion={(question) => setQuestionnaire((prev) => ({...prev, questions: [...prev.questions, question]}))}
                 removeQuestion={(id: string) => setQuestionnaire((prev) => ({...prev, questions: prev.questions.filter(q => q.id !== id)}))}
             />}

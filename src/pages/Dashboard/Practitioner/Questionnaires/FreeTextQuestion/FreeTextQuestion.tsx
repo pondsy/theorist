@@ -1,32 +1,26 @@
-import React, {useEffect, useId, useState} from "react";
+import React, {useEffect, useState} from "react";
 import styles from "../EditQuestionnaire/EditQuestionnaire.module.scss";
 import {ReactComponent as Save} from "../../../../../resources/svgs/save.svg";
 import sharedStyles from "../../../../../styles/shared.module.scss";
 import {ReactComponent as Delete} from "../../../../../resources/svgs/delete.svg";
-import {FreeText, QuestionType} from "../../../../../store/practitioner/practitionerTypes";
+import {FreeText} from "../../../../../store/practitioner/practitionerTypes";
 import useValidation from "../../../../../hooks/useValidation";
 import ErrorMessage from "../../../../../components/ErrorMessage";
 
 
 interface Props {
     className: string;
-    values?: FreeText;
+    values: FreeText;
     addQuestion: (form: FreeText) => void;
     removeQuestion: (id: string) => void;
 }
 
 const FreeTextQuestion = ({className, values, addQuestion, removeQuestion}: Props) => {
 
-    const id = useId();
     const {validateQuestion} = useValidation();
 
     const [errors, setErrors] = useState<{title?: string}>();
-    const [form, setForm] = useState<FreeText>({
-        id,
-        title: '',
-        type: QuestionType.freeText,
-        answer: ''
-    });
+    const [form, setForm] = useState<FreeText>(values);
 
     useEffect(() => {
         if (values) setForm(values);
@@ -53,7 +47,7 @@ const FreeTextQuestion = ({className, values, addQuestion, removeQuestion}: Prop
 
     return (
         <div key={form.id} className={className}>
-            <label>Free text question {form.id}</label>
+            <label>New free text question</label>
             <div className={sharedStyles.inputWithButtons}>
                 <input onKeyDown={(e) => e.key === 'Enter' && addToForm()} className={`${styles.input} ${errors?.title && sharedStyles.error}`} value={form?.title} onChange={(e)=> setForm((prev) => ({...prev, title: e.target.value}))}/>
                 <span className={sharedStyles.inlineIconButtons}>

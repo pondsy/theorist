@@ -1,6 +1,6 @@
 import styles from './ResponseCard.module.scss';
-import {ClientQuestionnaire} from "../../../../store/client/clientTypes";
-import {Client} from "../../../../store/practitioner/practitionerTypes";
+import {ClientQuestionnaire} from "../../../../../store/client/clientTypes";
+import {Client} from "../../../../../store/practitioner/practitionerTypes";
 
 interface Props {
     response: ClientQuestionnaire;

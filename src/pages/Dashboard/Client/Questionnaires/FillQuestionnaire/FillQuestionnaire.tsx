@@ -10,6 +10,7 @@ import FreeTextAnswer from "../FreeTextAnswer";
 import MultiChoiceAnswer from "../MultiChoiceAnswer";
 import ProgressBar from "../../../../../components/ProgressBar";
 import {ClientQuestionnaire} from "../../../../../store/client/clientTypes";
+import {ReactComponent as Regard} from "../../../../../resources/svgs/regard.svg";
 
 interface Props {
     close: () => void;
@@ -83,8 +84,9 @@ const FillQuestionnaire = ({close, fields, saveQuestionnaire}: Props) => {
     return (
         <React.Fragment>
 
-            <div className={styles.labeledInput}>
+            <div className={styles.title}>
                 <h3>{fields?.title}</h3>
+                <Regard onClick={close}/>
             </div>
 
             <ProgressBar completed={(active/questions.length)*100 || 0}/>

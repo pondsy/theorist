@@ -25,7 +25,7 @@ const Button = ({text, color = 'var(--color-action)', hoverColor = 'var(--color-
             onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}
         >
-            {icon}{text}
+            {icon ? <span>{icon}{text}</span> : <p>{text}</p>}
         </button>
     )
 }

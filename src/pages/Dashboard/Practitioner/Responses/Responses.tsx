@@ -1,11 +1,11 @@
-import {useAppSelector} from "../../../../store/store";
 import styles from "../Questionnaires/Questionnaires.module.scss";
 import React, {useState} from "react";
-import ResponseCard from "../ResponseCard";
-import {ClientQuestionnaire} from "../../../../store/client/clientTypes";
-import Modal from "../../../../components/Modal";
-import ViewResponses from "../ViewResponses";
 import {Client} from "../../../../store/practitioner/practitionerTypes";
+import {ClientQuestionnaire} from "../../../../store/client/clientTypes";
+import {useAppSelector} from "../../../../store/store";
+import Modal from "../../../../components/Modal";
+import ResponseCard from "./ResponseCard";
+import ViewResponses from "../../../../components/ViewResponses";
 
 const Responses = () => {
 
