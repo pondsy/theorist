@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import styles from './EditQuestionnaire.module.scss';
-import {ReactComponent as Add} from "../../../resources/svgs/add.svg";
-import sharedStyles from "../../../styles/shared.module.scss";
+import {ReactComponent as Add} from "../../../../../resources/svgs/add.svg";
+import sharedStyles from "../../../../../styles/shared.module.scss";
 import FreeTextQuestion from "../FreeTextQuestion";
-import {ReactComponent as Edit} from "../../../resources/svgs/edit.svg";
-import {ReactComponent as Delete} from "../../../resources/svgs/delete.svg";
+import {ReactComponent as Edit} from "../../../../../resources/svgs/edit.svg";
+import {ReactComponent as Delete} from "../../../../../resources/svgs/delete.svg";
 import MultiChoiceQuestion from "../MultiChoiceQuestion";
 import {
     FreeText,

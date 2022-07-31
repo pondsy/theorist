@@ -1,5 +1,5 @@
 import styles from './PractitionerHeader.module.scss';
-import {ReactComponent as Circle} from "../../resources/svgs/circle.svg";
+import {ReactComponent as Circle} from "../../../../resources/svgs/circle.svg";
 import {useEffect, useState} from "react";
 
 interface Props {

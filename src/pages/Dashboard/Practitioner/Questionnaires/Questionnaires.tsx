@@ -1,12 +1,12 @@
 import styles from './Questionnaires.module.scss';
-import sharedStyles from '../../styles/shared.module.scss';
+import sharedStyles from '../../../../styles/shared.module.scss';
 import React, {useLayoutEffect, useMemo, useState} from 'react';
 import {Column} from "react-table";
-import {ReactComponent as Add} from "../../resources/svgs/add.svg";
-import {ReactComponent as Confirm} from "../../resources/svgs/confirm.svg";
-import {ReactComponent as Regard} from "../../resources/svgs/regard.svg";
-import {ReactComponent as Edit} from "../../resources/svgs/edit.svg";
-import {ReactComponent as Delete} from "../../resources/svgs/delete.svg";
+import {ReactComponent as Add} from "../../../../resources/svgs/add.svg";
+import {ReactComponent as Confirm} from "../../../../resources/svgs/confirm.svg";
+import {ReactComponent as Regard} from "../../../../resources/svgs/regard.svg";
+import {ReactComponent as Edit} from "../../../../resources/svgs/edit.svg";
+import {ReactComponent as Delete} from "../../../../resources/svgs/delete.svg";
 import EditQuestionnaire from "./EditQuestionnaire";
 import {useDispatch} from "react-redux";
 import {AuthState} from "../../../../store/auth/authTypes";

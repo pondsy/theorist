@@ -1,11 +1,11 @@
 import React, {useEffect, useId, useState} from "react";
 import styles from "../EditQuestionnaire/EditQuestionnaire.module.scss";
-import {ReactComponent as Save} from "../../../resources/svgs/save.svg";
-import sharedStyles from "../../../styles/shared.module.scss";
-import {ReactComponent as Delete} from "../../../resources/svgs/delete.svg";
-import {ReactComponent as Add} from "../../../resources/svgs/add.svg";
+import {ReactComponent as Save} from "../../../../../resources/svgs/save.svg";
+import sharedStyles from "../../../../../styles/shared.module.scss";
+import {ReactComponent as Delete} from "../../../../../resources/svgs/delete.svg";
+import {ReactComponent as Add} from "../../../../../resources/svgs/add.svg";
 import MultiChoiceOption from "../MultiChoiceOption";
-import {ReactComponent as Edit} from "../../../resources/svgs/edit.svg";
+import {ReactComponent as Edit} from "../../../../../resources/svgs/edit.svg";
 import {MultiChoice, Option, QuestionType} from "../../../../../store/practitioner/practitionerTypes";
 import useValidation from "../../../../../hooks/useValidation";
 import ErrorMessage from "../../../../../components/ErrorMessage";
