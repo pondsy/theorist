@@ -1,0 +1,46 @@
+.selectable {
+  width: 50%;
+  min-height: 50px;
+  display: flex;
+  margin: 5px 0;
+  padding: 0 20px;
+  border-radius: 5px;
+  background: var(--color-background);
+  box-shadow: 0 1.5em 2.5em -0.5em rgb(0 0 0 / 10%);
+  transition: transform 0.45s ease, background 0.45s ease;
+  cursor: pointer;
+  color: var(--linear-right);
+  max-width: 300px;
+  align-items: center;
+  &:hover {
+    background: var(--color-action);
+    transform: scale(1.02);
+    color: var(--color-background);
+  }
+
+  > h4 {
+    text-align: left;
+  }
+}
+
+.questions {
+  width: 100%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.checkbox {
+  display: none;
+}
+
+.selected {
+  background: var(--color-action);
+  transform: scale(1.02);
+  color: var(--color-background);
+}
+
+.disabled {
+  cursor: not-allowed !important;
+  opacity: .6;
+}

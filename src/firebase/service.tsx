@@ -1,7 +1,8 @@
 import {auth, db} from "./init";
 import firebase from "firebase/compat/app";
 import {Client, Questionnaire} from "../store/practitioner/practitionerTypes";
-import {AuthState} from "../store/auth/authTypes";
+import {AuthState, UserData} from "../store/auth/authTypes";
+import {ClientQuestionnaire} from "../store/client/clientTypes";
 
 export class Firebase {
 
@@ -41,11 +42,11 @@ export class Firebase {
         return localUser ? JSON.parse(localUser) : firebase.auth().currentUser || undefined;
     };
 
-    private static getUser = async (uid: string): Promise<any> => {
-        return await db.collection("users").doc(uid).get().then((querySnapshot) => querySnapshot.data());
+    private static getUser = async (uid: string): Promise<UserData> => {
+        return await db.collection("users").doc(uid).get().then((querySnapshot) => querySnapshot.data() as UserData);
     };
 
-    public static getQuestionnaires = async (uid: string): Promise<any> => {
+    public static getQuestionnairesByPractitioner = async (uid: string): Promise<Questionnaire[]> => {
         let data: any[] = [];
 
         await db.collection("questionnaires").where("practitioner", "==", uid).get()
@@ -54,6 +55,44 @@ export class Firebase {
                     data = data.concat({id: doc.id, ...doc.data()})
                 });
         })
+
+        return data;
+    };
+
+    public static getClientQuestionnaires = async (ids: string[], clientId: string): Promise<ClientQuestionnaire[]> => {
+        return await Promise.all(ids.map( async (id) => {
+            return await db.collection("questionnaires").doc(id).get().then((querySnapshot) => {
+                return {
+                    clientId,
+                    questionnaireId: querySnapshot.id,
+                    ...querySnapshot.data()
+                } as ClientQuestionnaire;
+            })
+        }))
+    };
+
+    public static getAnswersByClient = async (clientId: string): Promise<ClientQuestionnaire[]> => {
+        let data: any[] = [];
+
+        await db.collection("responses").where("clientId", "==", clientId).get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    data = data.concat({id: doc.id, ...doc.data()})
+                });
+            })
+
+        return data;
+    };
+
+    public static getClientResponses = async (uid: string): Promise<ClientQuestionnaire[]> => {
+        let data: any[] = [];
+
+        await db.collection("responses").where("practitioner", "==", uid).get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    data = data.concat({id: doc.id, ...doc.data()})
+                });
+            })
 
         return data;
     };
@@ -71,13 +110,30 @@ export class Firebase {
             }
             return await db.collection("questionnaires").doc(questionnaire.id).set(data)
                 .then(() => {
-                    return this.getQuestionnaires(uid)
+                    return this.getQuestionnairesByPractitioner(uid)
                 })
         }
         return await db.collection("questionnaires").doc().set(questionnaire)
             .then(() => {
-                return this.getQuestionnaires(uid)
+                return this.getQuestionnairesByPractitioner(uid)
             })
+    };
+
+    public static saveClientAnswer = async (questionnaire: ClientQuestionnaire): Promise<ClientQuestionnaire[]> => {
+
+        const data = {
+            questionnaireId: questionnaire.questionnaireId,
+            clientId: questionnaire.clientId,
+            title: questionnaire.title,
+            questions: questionnaire.questions,
+            added: questionnaire.added,
+            practitioner: questionnaire.practitioner
+        }
+
+        return await db.collection("responses").doc().set(data)
+            .then( async () => {
+                return this.getAnswersByClient(questionnaire.clientId)
+        })
     };
 
     public static deleteQuestionnaire = async (questionnaire: Questionnaire): Promise<Questionnaire[]> => {
@@ -89,7 +145,7 @@ export class Firebase {
 
         return await db.collection('questionnaires').doc(id).get()
             .then(function(querySnapshot) {querySnapshot.ref.delete()})
-            .then(() => this.getQuestionnaires(uid));
+            .then(() => this.getQuestionnairesByPractitioner(uid));
     };
 
     public static getClients = async (uid: string) => {
@@ -105,7 +161,7 @@ export class Firebase {
         return data;
     }
 
-    public static assignQuestionnaire = async (uid: string, client: Client) => {
+    public static assignQuestionnaire = async (uid: string, client: Client): Promise<Client[]> => {
 
         const data = {
             name: client.name,

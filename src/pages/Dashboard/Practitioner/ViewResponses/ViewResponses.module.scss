@@ -1,0 +1,42 @@
+.title {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  justify-content: space-between;
+  align-items: center;
+
+  &:first-child {
+    margin: 0 0 10px;
+  }
+
+  > h3 {
+    font-size: 1.3em;
+  }
+
+  > svg {
+    height: 20px;
+    cursor: pointer;
+  }
+}
+
+.questionCount {
+  font-weight: bold;
+  align-self: flex-start;
+}
+
+.userAnswers {
+
+  > :first-child {
+    display: inline-flex;
+    gap: 20px;
+    align-items: center;
+font-style: italic;
+  }
+
+  > :last-child {
+    font-size: 1.3em;
+    padding: 10px 0 20px 30px;
+    text-decoration: underline;
+
+  }
+}

@@ -12,6 +12,12 @@ export default function useValidation() {
     return;
   }
 
+  function validateAnswer(answer: string): string|undefined {
+    if (answer.trim() === "") return 'Answer required!';
+    if (answer.length > 200) return 'Answer is too long!'
+    return;
+  }
+
   function validateOptions(options: any[]): string|undefined {
     if (options.length === 0) return 'You must set options for multi-choice questions!';
     return;
@@ -41,6 +47,7 @@ export default function useValidation() {
     validateQuestion,
     validateOptions,
     validateQuestions,
+    validateAnswer,
     validateEmail,
     validatePassword
   };

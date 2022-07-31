@@ -1,33 +1,36 @@
+import {ClientQuestionnaire} from "../client/clientTypes";
+
 export interface PractitionerState {
-  questionnaires: Questionnaire[];
-  clients: Client[];
+    questionnaires: Questionnaire[];
+    clients: Client[];
+    responses: ClientQuestionnaire[];
 }
 
 export interface Client {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  questionnaire: UserQuestionnaire;
-  birthdate: string;
-  practitioner: string;
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+    questionnaire: UserQuestionnaire;
+    birthdate: string;
+    practitioner: string;
 }
 
 export interface UserQuestionnaire {
-  new: string[];
-  ready: string[];
+    available: string[];
+    ready: string[];
 }
 
 export interface Questionnaire {
-    id: string|null;
+    id?: string;
     title: string;
-    questions: (FreeText|MultiChoice)[];
+    questions: (FreeText | MultiChoice)[];
     added: string;
     practitioner?: string;
 }
 
 export interface MultiChoice extends Question {
-    options?: Option[]
+    options: Option[]
 }
 
 export interface FreeText extends Question {
@@ -37,7 +40,7 @@ export interface FreeText extends Question {
 export interface Question {
     id: string;
     title: string;
-    type?: QuestionType;
+    type: QuestionType;
 }
 
 export interface Option {
