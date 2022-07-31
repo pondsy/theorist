@@ -1,7 +1,6 @@
 import {auth, db} from "./init";
 import firebase from "firebase/compat/app";
-import {Questionnaire} from "../components/Questionnaires/Questionnaires";
-import {Client} from "../store/practitioner/practitionerTypes";
+import {Client, Questionnaire} from "../store/practitioner/practitionerTypes";
 
 export class Firebase {
 

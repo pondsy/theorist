@@ -1,16 +1,12 @@
 import React, {useEffect, useId, useState} from "react";
 import styles from "../EditQuestionnaire/EditQuestionnaire.module.scss";
-import {ReactComponent as Save} from "../../../resources/svgs/save.svg";
-import sharedStyles from "../../../styles/shared.module.scss";
-import {ReactComponent as Delete} from "../../../resources/svgs/delete.svg";
-import useValidation from "../../../hooks/useValidation";
-import ErrorMessage from "../../ErrorMessage";
+import {ReactComponent as Save} from "../../../../../resources/svgs/save.svg";
+import sharedStyles from "../../../../../styles/shared.module.scss";
+import {ReactComponent as Delete} from "../../../../../resources/svgs/delete.svg";
+import {Option} from "../../../../../store/practitioner/practitionerTypes";
+import useValidation from "../../../../../hooks/useValidation";
+import ErrorMessage from "../../../../../components/ErrorMessage";
 
-export interface Option {
-    id: string;
-    answer: string;
-    selected: boolean;
-}
 interface Props {
     className: string;
     values?: Option;

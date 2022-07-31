@@ -1,8 +1,8 @@
 import styles from './PractitionerDashboard.module.scss';
-import PractitionerHeader from "../../../components/PractitionerHeader";
-import Questionnaires from "../../../components/Questionnaires";
-import Clients from "../../../components/Clients";
-import Responses from "../../../components/Responses";
+import PractitionerHeader from "./PractitionerHeader";
+import Questionnaires from "./Questionnaires";
+import Clients from "./Clients";
+import Responses from "./Responses";
 import {useEffect, useState} from "react";
 import {getClients, getQuestionnaires} from "../../../store/practitioner/practitionerActions";
 import {useDispatch} from "react-redux";

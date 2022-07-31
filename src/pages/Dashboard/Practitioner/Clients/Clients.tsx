@@ -1,16 +1,16 @@
 import styles from './Clients.module.scss';
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useMemo, useState} from "react";
 import {useDispatch} from "react-redux";
-import {assignQuestionnaire, getClients} from "../../store/practitioner/practitionerActions";
-import {useAppSelector} from "../../store/store";
-import {AuthState} from "../../store/auth/authTypes";
 import {Column} from "react-table";
-import sharedStyles from "../../styles/shared.module.scss";
-import {ReactComponent as Add} from "../../resources/svgs/add.svg";
-import Table from "../Table";
-import Modal from "../Modal";
-import {Client} from "../../store/practitioner/practitionerTypes";
-import Button from "../Button";
+import sharedStyles from "../../../../styles/shared.module.scss";
+import {ReactComponent as Add} from "../../../../resources/svgs/add.svg";
+import {useAppSelector} from "../../../../store/store";
+import {Client} from "../../../../store/practitioner/practitionerTypes";
+import {AuthState} from "../../../../store/auth/authTypes";
+import {assignQuestionnaire} from "../../../../store/practitioner/practitionerActions";
+import Modal from "../../../../components/Modal";
+import Table from "../../../../components/Table";
+import Button from "../../../../components/Button";
 
 export interface TableData {
     col1: string;

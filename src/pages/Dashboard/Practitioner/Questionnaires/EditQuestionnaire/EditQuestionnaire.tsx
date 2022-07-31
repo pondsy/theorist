@@ -1,23 +1,23 @@
 import React, {useEffect, useState} from "react";
 import styles from './EditQuestionnaire.module.scss';
-import {ReactComponent as Add} from "../../../resources/svgs/add.svg";
-import sharedStyles from "../../../styles/shared.module.scss";
+import {ReactComponent as Add} from "../../../../../resources/svgs/add.svg";
+import sharedStyles from "../../../../../styles/shared.module.scss";
 import FreeTextQuestion from "../FreeTextQuestion";
-import {ReactComponent as Edit} from "../../../resources/svgs/edit.svg";
-import {ReactComponent as Delete} from "../../../resources/svgs/delete.svg";
-import Divider from "../../Divider";
-import Button from "../../Button";
+import {ReactComponent as Edit} from "../../../../../resources/svgs/edit.svg";
+import {ReactComponent as Delete} from "../../../../../resources/svgs/delete.svg";
 import MultiChoiceQuestion from "../MultiChoiceQuestion";
-import {Question, Questionnaire} from "../Questionnaires";
-import useValidation from "../../../hooks/useValidation";
-import ErrorMessage from "../../ErrorMessage";
-import {FreeText} from "../FreeTextQuestion/FreeTextQuestion";
-import {MultiChoice} from "../MultiChoiceQuestion/MultiChoiceQuestion";
+import {
+    FreeText,
+    MultiChoice,
+    Question,
+    Questionnaire,
+    QuestionType
+} from "../../../../../store/practitioner/practitionerTypes";
+import useValidation from "../../../../../hooks/useValidation";
+import ErrorMessage from "../../../../../components/ErrorMessage";
+import Divider from "../../../../../components/Divider";
+import Button from "../../../../../components/Button";
 
-export enum QuestionType {
-    multiChoice = 'multiChoice',
-    freeText = 'freeText'
-}
 
 interface Props {
     close: () => void;

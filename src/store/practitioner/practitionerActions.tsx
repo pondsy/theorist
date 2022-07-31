@@ -7,8 +7,7 @@ import {
 } from "./practitionerConstants";
 import {AppDispatch} from "../store";
 import PractitionerService from "./practitionerService";
-import {Questionnaire} from "../../components/Questionnaires/Questionnaires";
-import {Client} from "./practitionerTypes";
+import {Client, Questionnaire} from "./practitionerTypes";
 
 export const getQuestionnaires = (uid: string) => async (dispatch: AppDispatch) => {
   const data = await PractitionerService.getQuestionnaires(uid);

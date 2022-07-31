@@ -1,37 +1,20 @@
 import styles from './Questionnaires.module.scss';
-import sharedStyles from '../../styles/shared.module.scss';
+import sharedStyles from '../../../../styles/shared.module.scss';
 import React, {useLayoutEffect, useMemo, useState} from 'react';
 import {Column} from "react-table";
-import {ReactComponent as Add} from "../../resources/svgs/add.svg";
-import {ReactComponent as Confirm} from "../../resources/svgs/confirm.svg";
-import {ReactComponent as Regard} from "../../resources/svgs/regard.svg";
-import {ReactComponent as Edit} from "../../resources/svgs/edit.svg";
-import {ReactComponent as Delete} from "../../resources/svgs/delete.svg";
+import {ReactComponent as Add} from "../../../../resources/svgs/add.svg";
+import {ReactComponent as Confirm} from "../../../../resources/svgs/confirm.svg";
+import {ReactComponent as Regard} from "../../../../resources/svgs/regard.svg";
+import {ReactComponent as Edit} from "../../../../resources/svgs/edit.svg";
+import {ReactComponent as Delete} from "../../../../resources/svgs/delete.svg";
 import EditQuestionnaire from "./EditQuestionnaire";
-import Modal from "../Modal";
-import Table from "../Table";
-import {QuestionType} from "./EditQuestionnaire/EditQuestionnaire";
-import {FreeText} from "./FreeTextQuestion/FreeTextQuestion";
-import {MultiChoice} from "./MultiChoiceQuestion/MultiChoiceQuestion";
 import {useDispatch} from "react-redux";
-import {deleteQuestionnaire, getQuestionnaires, saveQuestionnaire} from "../../store/practitioner/practitionerActions";
-import {useAppSelector} from "../../store/store";
-import {AuthState} from "../../store/auth/authTypes";
-
-
-export interface Questionnaire {
-    id: string|null;
-    title: string;
-    questions: (FreeText|MultiChoice)[];
-    added: string;
-    practitioner?: string;
-}
-
-export interface Question {
-    id: string;
-    title: string;
-    type?: QuestionType;
-}
+import {AuthState} from "../../../../store/auth/authTypes";
+import {useAppSelector} from "../../../../store/store";
+import {Questionnaire} from "../../../../store/practitioner/practitionerTypes";
+import {deleteQuestionnaire, saveQuestionnaire} from "../../../../store/practitioner/practitionerActions";
+import Table from "../../../../components/Table";
+import Modal from "../../../../components/Modal";
 
 export interface TableData {
     col1: string;

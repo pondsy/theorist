@@ -1,6 +1,5 @@
 import {Firebase} from "../../firebase/service";
-import {Questionnaire} from "../../components/Questionnaires/Questionnaires";
-import {Client} from "./practitionerTypes";
+import {Client, Questionnaire} from "./practitionerTypes";
 
 class PractitionerService {
 
