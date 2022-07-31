@@ -7,6 +7,7 @@ import {
   GET_CLIENTS
 } from "./practitionerConstants";
 import {PractitionerState} from "./practitionerTypes";
+import {PURGE} from "redux-persist/es/constants";
 
 const initialState: PractitionerState = {
   questionnaires: [],
@@ -44,6 +45,9 @@ const practitioner: Reducer<PractitionerState> = createReducer(initialState, {
       clients: action.payload
     }
   },
+  [PURGE]: () => {
+    return initialState
+  }
 });
 
 export default practitioner;

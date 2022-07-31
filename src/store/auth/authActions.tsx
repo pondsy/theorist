@@ -1,16 +1,15 @@
-import {SET_AUTH, REMOVE_AUTH} from "./authConstants";
+import {SET_AUTH} from "./authConstants";
 import {AppDispatch} from "../store";
-import firebase from "firebase/compat/app";
+import {AuthState} from "./authTypes";
+import AuthService from "./authService";
 
-export const setAuth = (user: firebase.User) => async (dispatch: AppDispatch) => {
+export const setAuth = (user: AuthState) => async (dispatch: AppDispatch) => {
   dispatch({
     type: SET_AUTH,
     payload: user,
   });
 };
 
-export const removeAuth = () => async (dispatch: AppDispatch) => {
-  dispatch({
-    type: REMOVE_AUTH
-  });
+export const removeAuth = () => async () => {
+  await AuthService.logout();
 };

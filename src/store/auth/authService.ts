@@ -1,9 +1,10 @@
 import firebase from "firebase/compat/app";
 import {Firebase} from "../../firebase/service";
+import {AuthState} from "./authTypes";
 
 class AuthService {
 
-    static async login(email: string, password: string, role: string): Promise<firebase.User | undefined> {
+    static async login(email: string, password: string, role: string): Promise<AuthState | undefined> {
         return await Firebase.login(email, password, role);
     }
 

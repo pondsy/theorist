@@ -6,9 +6,10 @@
   width: 50px;
 }
 
-.addLogo {
+.logout {
   @include logo;
   width: 20px;
+  cursor: pointer;
 }
 
 .header {

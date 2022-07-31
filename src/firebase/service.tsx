@@ -1,10 +1,11 @@
 import {auth, db} from "./init";
 import firebase from "firebase/compat/app";
 import {Client, Questionnaire} from "../store/practitioner/practitionerTypes";
+import {AuthState} from "../store/auth/authTypes";
 
 export class Firebase {
 
-    public static login = async (email: string, password: string, role: string): Promise<firebase.User|undefined> => {
+    public static login = async (email: string, password: string, role: string): Promise<AuthState|undefined> => {
         await auth.signInWithEmailAndPassword(email, password);
         const user = await firebase.auth().currentUser;
         if (!user) {
@@ -23,7 +24,10 @@ export class Firebase {
 
         localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem('role', role);
-        return user;
+        return {
+            user,
+            data: document
+        };
     };
 
     public static logout = async (error?: string) => {
