@@ -21,7 +21,6 @@ export const getClientResponses = (uid: string) => async (dispatch: AppDispatch)
 
 export const saveClientAnswer = (questionnaire: ClientQuestionnaire) => async (dispatch: AppDispatch) => {
     const data = await ClientService.saveClientAnswer(questionnaire);
-    console.log('data?', data);
     dispatch({
         type: SAVE_ANSWER,
         payload: data,

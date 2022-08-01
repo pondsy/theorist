@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import styles from "../EditQuestionnaire/EditQuestionnaire.module.scss";
 import {ReactComponent as Save} from "../../../../../resources/svgs/save.svg";
 import sharedStyles from "../../../../../styles/shared.module.scss";
 import {ReactComponent as Delete} from "../../../../../resources/svgs/delete.svg";
@@ -61,10 +60,9 @@ const MultiChoiceQuestion = ({className, values, addQuestion, removeQuestion}: P
 
     return (
         <div key={form.id} className={className}>
-            <label>New multi-choice question</label>
             <div className={sharedStyles.inputWithButtons}>
-                <input onKeyDown={(e) => e.key === 'Enter' && addToForm()}
-                       className={`${styles.input} ${errors?.title && sharedStyles.error}`} value={form?.title}
+                <input placeholder="multi-choice question" onKeyDown={(e) => e.key === 'Enter' && addToForm()}
+                       className={`${sharedStyles.input} ${errors?.title && sharedStyles.error}`} value={form?.title}
                        onChange={(e) => setForm((prev) => ({...prev, title: e.target.value}))}/>
                 <span className={sharedStyles.inlineIconButtons}>
                     <Save onClick={addToForm}/>
@@ -74,10 +72,10 @@ const MultiChoiceQuestion = ({className, values, addQuestion, removeQuestion}: P
             {errors?.title && <ErrorMessage error={errors?.title}/>}
 
             {form.options && form.options.map((option, id) => (
-                <div key={id} className={styles.inputWithButtons}>
+                <div key={id} className={sharedStyles.textWithButtons}>
                     {editOption?.id === option.id ?
                         <MultiChoiceOption
-                            className={styles.labeledInput}
+                            className={sharedStyles.labeledInput}
                             values={option}
                             addAnswer={(answer) => setForm((prev) => {
                                 return ({
@@ -110,7 +108,7 @@ const MultiChoiceQuestion = ({className, values, addQuestion, removeQuestion}: P
             {addOption && addOption.map((option, index) => {
                 return (<MultiChoiceOption
                     key={index}
-                    className={`${styles.labeledInput} ${styles.indent}`}
+                    className={`${sharedStyles.labeledInput} ${sharedStyles.indent}`}
                     values={option}
                     addAnswer={(answer) => {
                         setForm((prev) => ({...prev, options: prev.options?.concat(answer)}))
@@ -125,7 +123,7 @@ const MultiChoiceQuestion = ({className, values, addQuestion, removeQuestion}: P
                 />)
             })}
 
-            <Button icon={<Add/>} color='none' hoverColor="none" padding="5px 20px" text="option"
+            <Button icon={<Add/>} color='none' hoverColor="none" padding="10px 20px 0px" text="option"
                     onClick={() => setAddOption((prev) => prev.concat({id: uuid(), answer: '', selected: false}))}/>
         </div>
     )

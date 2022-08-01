@@ -60,10 +60,5 @@
 }
 
 .modal {
-  width: 700px;
-  position: fixed;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%, -20%);
-  text-align: center;
+  width: 700px !important;
 }

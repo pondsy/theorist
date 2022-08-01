@@ -47,10 +47,9 @@ const FreeTextQuestion = ({className, values, addQuestion, removeQuestion}: Prop
 
     return (
         <div key={form.id} className={className}>
-            <label>New free text question</label>
             <div className={sharedStyles.inputWithButtons}>
-                <input onKeyDown={(e) => e.key === 'Enter' && addToForm()}
-                       className={`${styles.input} ${errors?.title && sharedStyles.error}`} value={form?.title}
+                <input placeholder="free-text question" onKeyDown={(e) => e.key === 'Enter' && addToForm()}
+                       className={`${sharedStyles.input} ${errors?.title && sharedStyles.error}`} value={form?.title}
                        onChange={(e) => setForm((prev) => ({...prev, title: e.target.value}))}/>
                 <span className={sharedStyles.inlineIconButtons}>
                     <Save onClick={() => addToForm()}/>

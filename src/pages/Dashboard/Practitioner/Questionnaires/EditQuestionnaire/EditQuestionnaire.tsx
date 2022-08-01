@@ -79,26 +79,24 @@ const EditQuestionnaire = ({close, fields, saveQuestionnaire}: Props) => {
     return (
         <React.Fragment>
 
-            <div className={styles.labeledInput}>
-                <h3>Title</h3>
-                <input className={`${styles.input} ${styles.title} ${errors?.title && sharedStyles.error}`}
+            <div className={sharedStyles.labeledInput}>
+                <input placeholder="Title" className={`${sharedStyles.input} ${styles.title} ${errors?.title && sharedStyles.error}`}
                        value={questionnaire.title}
                        onChange={(e) => setQuestionnaire((prev) => ({...prev, title: e.target.value}))}/>
                 {errors?.title && <ErrorMessage error={errors?.title}/>}
             </div>
 
-            <Divider/>
+            <br/>
 
-            <div className={`${styles.labeledInput}  ${errors?.questions && sharedStyles.error}`}>
-                <h3>Questions</h3>
+            <div className={`${sharedStyles.labeledInput}  ${errors?.questions && sharedStyles.error}`}>
                 {questionnaire.questions?.map((question: FreeText | MultiChoice, id) => (
                     <React.Fragment key={id}>
-                        <div className={styles.inputWithButtons}>
+                        <div className={sharedStyles.textWithButtons}>
                             <label className={styles.questionCount}>{id + 1}</label>
                             {editQuestion?.id === question.id ?
                                 <React.Fragment>
                                     {editQuestion.type === QuestionType.freeText ? <FreeTextQuestion
-                                        className={styles.labeledInput}
+                                        className={sharedStyles.labeledInput}
                                         values={question as FreeText}
                                         addQuestion={(question) => setQuestionnaire((prev) => ({
                                             ...prev,
@@ -114,7 +112,7 @@ const EditQuestionnaire = ({close, fields, saveQuestionnaire}: Props) => {
                                             questions: prev.questions.filter(q => q.id !== id)
                                         }))}
                                     /> : <MultiChoiceQuestion
-                                        className={styles.labeledInput}
+                                        className={sharedStyles.labeledInput}
                                         values={question as MultiChoice}
                                         addQuestion={(question) => setQuestionnaire((prev) => ({
                                             ...prev,
@@ -138,7 +136,7 @@ const EditQuestionnaire = ({close, fields, saveQuestionnaire}: Props) => {
                             }))}/>
                         </span>}
                         </div>
-                        {question.type === QuestionType.multiChoice &&
+                        {question.type === QuestionType.multiChoice && editQuestion?.id !== question.id &&
                             <div className={styles.questionOptions}>{getQuestionOptions(question)}</div>}
                     </React.Fragment>
                 ))}
@@ -146,7 +144,7 @@ const EditQuestionnaire = ({close, fields, saveQuestionnaire}: Props) => {
             </div>
 
             {addQuestion === QuestionType.freeText && <FreeTextQuestion
-                className={styles.labeledInput}
+                className={`${sharedStyles.labeledInput} ${sharedStyles.indent}`}
                 values={{id: uuid(), title: '', type: QuestionType.freeText, answer: ''}}
                 addQuestion={(question) => setQuestionnaire((prev) => ({
                     ...prev,
@@ -159,7 +157,7 @@ const EditQuestionnaire = ({close, fields, saveQuestionnaire}: Props) => {
             />}
 
             {addQuestion === QuestionType.multiChoice && <MultiChoiceQuestion
-                className={styles.labeledInput}
+                className={`${sharedStyles.labeledInput} ${sharedStyles.indent}`}
                 values={{id: uuid(), title: '', type: QuestionType.multiChoice, options: []}}
                 addQuestion={(question) => setQuestionnaire((prev) => ({
                     ...prev,
@@ -171,17 +169,17 @@ const EditQuestionnaire = ({close, fields, saveQuestionnaire}: Props) => {
                 }))}
             />}
 
-            {!addQuestion && !editQuestion && <React.Fragment>
+            {!addQuestion && !editQuestion && <div className={sharedStyles.addQuestion}>
                 <Button icon={<Add/>} color='none' hoverColor="none"
-                        padding={`5px ${questionnaire.questions.length ? '40px' : '20px'}`} text="free text"
+                        padding={`5px ${questionnaire.questions.length ? '50px' : '20px'}`} text="free-text question"
                         onClick={() => setAddQuestion(QuestionType.freeText)}/>
                 <Button icon={<Add/>} color='none' hoverColor="none"
-                        padding={`5px ${questionnaire.questions.length ? '40px' : '20px'}`} text="multi-choice"
+                        padding={`5px ${questionnaire.questions.length ? '50px' : '20px'}`} text="multi-choice question"
                         onClick={() => setAddQuestion(QuestionType.multiChoice)}/>
-            </React.Fragment>
+            </div>
             }
 
-            {!addQuestion && <div className={styles.footerButtons}>
+            {!addQuestion && <div className={sharedStyles.footerButtons}>
                 <Button text="Save questionnaire" onClick={() => save()}/>
                 <Button text="Close" onClick={close}/>
             </div>}

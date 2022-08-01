@@ -1,5 +1,4 @@
 import firebase from "firebase/compat/app";
-import {UserQuestionnaire} from "../practitioner/practitionerTypes";
 
 export interface AuthState {
     user?: firebase.User;
@@ -12,5 +11,5 @@ export interface UserData {
     birthdate: string;
     role: string;
     practitioner?: string;
-    questionnaire?: UserQuestionnaire
+    questionnaire?: string[]
 }

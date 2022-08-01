@@ -61,7 +61,7 @@ const MultiChoiceAnswer = ({className, values, index, length, addAnswer, goBack}
             <div className={styles.questions}>
                 {form.options && form.options.map((option, id) => (
                     <label key={id}
-                           className={`${sharedStyles.inputWithButtons} ${styles.selectable} ${option.selected && styles.selected}`}>
+                           className={`${sharedStyles.textWithButtons} ${styles.selectable} ${option.selected && styles.selected}`}>
                         <input
                             type="radio"
                             name="option"
@@ -74,10 +74,10 @@ const MultiChoiceAnswer = ({className, values, index, length, addAnswer, goBack}
                 ))}
             </div>
 
-            {<div className={sharedStyles.footerButtons}>
+            {<div className={sharedStyles.footerNav}>
                 {index !== 0 && <Back style={{marginRight: 'auto'}} onClick={() => goBack(index - 1)}/>}
                 {index !== length - 1 &&
-                    <Next className={`${!selected ? styles.disabled : ''}`} style={{marginLeft: 'auto'}}
+                    <Next className={`${!selected ? sharedStyles.disabled : ''}`} style={{marginLeft: 'auto'}}
                           onClick={() => selected && addAnswer(form, false)}/>}
                 {index === length - 1 && <Button disabled={!selected} style={{marginLeft: 'auto'}} text={'Save'}
                                                  onClick={() => addAnswer(form, true)}/>}

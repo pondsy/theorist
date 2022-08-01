@@ -1,4 +1,5 @@
 import styles from "./Questionnaires.module.scss";
+import sharedStyles from '../../../../styles/shared.module.scss';
 import React, {useMemo, useState} from "react";
 import {useAppSelector} from "../../../../store/store";
 import QuestionnaireCard from "./QuestionnaireCard";
@@ -38,7 +39,7 @@ const Questionnaires = () => {
                 {available.map((q, id) => (
                     <QuestionnaireCard key={id} questionnaire={q} open={(questionnaire) => setCreate(questionnaire)}/>
                 ))}
-                {!available.length && <div className={styles.message}>
+                {!available.length && <div className={sharedStyles.message}>
                     You don't have any available questionnaire.
                 </div>}
             </div>
@@ -49,7 +50,7 @@ const Questionnaires = () => {
                     <ResponseCard key={id} response={a} open={(questionnaire) => setView(questionnaire)}/>
                 ))}
 
-                {!answers.length && <div className={styles.message}>
+                {!answers.length && <div className={sharedStyles.message}>
                     You haven't filled in any questionnaires yet.
                 </div>}
             </div>
@@ -57,7 +58,6 @@ const Questionnaires = () => {
             {create && <Modal
                 open={!!create}
                 close={() => setCreate(undefined)}
-                className={styles.modal}
                 content={
                     <FillQuestionnaire
                         close={() => setCreate(undefined)}
@@ -70,7 +70,6 @@ const Questionnaires = () => {
             {view && <Modal
                 open={!!view}
                 close={() => setView(undefined)}
-                className={styles.modal}
                 content={
                     <ViewResponses
                         close={() => setView(undefined)}

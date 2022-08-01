@@ -130,18 +130,29 @@ export class Firebase {
             })
     };
 
-    public static deleteQuestionnaire = async (questionnaire: Questionnaire): Promise<Questionnaire[]> => {
-        if (!questionnaire.practitioner) throw new Error('missing practitioner uid!');
-        if (!questionnaire.id) throw new Error('Questionnaire is not saved!');
+    public static deleteQuestionnaire = async (uid: string, questionnaireId: string): Promise<Questionnaire[]> => {
+        if (!uid) throw new Error('missing practitioner uid!');
+        if (!questionnaireId) throw new Error('Questionnaire is not saved!');
 
-        const uid = questionnaire.practitioner;
-        const id = questionnaire.id;
-
-        return await db.collection('questionnaires').doc(id).get()
+        return await db.collection('questionnaires').doc(questionnaireId).get()
             .then(function (querySnapshot) {
                 querySnapshot.ref.delete()
             })
             .then(() => this.getQuestionnairesByPractitioner(uid));
+    };
+
+    public static removeQuestionnaireFromUsers = async (uid: string, questionnaireId: string, userIds: string[]): Promise<Client[]> => {
+        if (!userIds) throw new Error('User ids not provided!');
+        if (!questionnaireId) throw new Error('Questionnaire id is not provided!');
+
+        return Promise.all(
+            userIds.map(async (id) => {
+                return await db.collection("users").doc(id).get().then((querySnapshot) => {
+                    const questionnaire = (querySnapshot.data() as Client).questionnaire.filter((id) => id !== questionnaireId);
+                    querySnapshot.ref.update({questionnaire})
+                })
+            })
+        ).then(async () => await this.getClients(uid))
     };
 
     public static getClients = async (uid: string) => {

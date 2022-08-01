@@ -1,4 +1,5 @@
 import styles from './ViewResponses.module.scss';
+import sharedStyles from '../../styles/shared.module.scss';
 import React from "react";
 import {ReactComponent as Regard} from "../../resources/svgs/regard.svg";
 import {ClientQuestionnaire} from "../../store/client/clientTypes";
@@ -26,7 +27,7 @@ const ViewResponses = ({close, fields, client}: Props) => {
 
             <Divider/>
 
-            <div className={styles.labeledInput}>
+            <div className={sharedStyles.scrollArea}>
                 {fields.questions?.map((question: FreeText | MultiChoice, id) => (
                         <React.Fragment key={id}>
                             <div className={styles.userAnswers}>

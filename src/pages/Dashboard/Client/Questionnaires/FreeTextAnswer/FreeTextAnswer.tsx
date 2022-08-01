@@ -65,15 +65,15 @@ const FreeTextAnswer = ({className, values, index, length, addAnswer, goBack}: P
                 cols={50}
                 onKeyDown={(e) => e.key === 'Enter' && addToForm()}
                 value={form?.answer}
-                className={styles.textArea}
+                className={sharedStyles.textArea}
                 onChange={(e) => setForm((prev) => ({...prev, answer: e.target.value}))}
             />
             {errors?.answer && <ErrorMessage error={errors?.answer}/>}
 
-            {<div className={sharedStyles.footerButtons}>
+            {<div className={sharedStyles.footerNav}>
                 {index !== 0 && <Back style={{marginRight: 'auto'}} onClick={() => goBack(index - 1)}/>}
                 {index !== length - 1 &&
-                    <Next className={`${!form.answer ? styles.disabled : ''}`} style={{marginLeft: 'auto'}}
+                    <Next className={`${!form.answer ? sharedStyles.disabled : ''}`} style={{marginLeft: 'auto'}}
                           onClick={() => form.answer && addToForm()}/>}
                 {index === length - 1 && <Button disabled={!form.answer} style={{marginLeft: 'auto'}} text={'Save'}
                                                  onClick={() => addToForm(true)}/>}

@@ -1,49 +1,11 @@
-.labeledInput {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  padding: 10px 0;
-
-  &:first-child {
-    padding: 0 0 10px;
-  }
-
-  > h3 {
-    font-size: 1.3em;
-  }
-}
-
-.input {
-  border: 1px solid var(--color-light);
-  background-color: var(--color-light);
-  border-radius: 5px;
-  padding: 12px;
-  min-width: 400px;
-}
-
-.inputWithButtons {
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-  gap: 20px;
-  margin: 10px 20px;
-  font-style: italic;
-}
-
 .title {
-  width: 70%;
-}
+  border-bottom: 1px solid var(--linear-right);
+  font-size: 1.3em;
 
-.footerButtons {
-  margin: 30px 0 0;
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  justify-content: end;
-}
-
-.indent {
-  margin: 0 20px;
+  &:focus {
+    outline: none;
+    border-bottom: 2px solid var(--linear-left);
+  }
 }
 
 .questionCount {
@@ -52,6 +14,6 @@
 }
 
 .questionOptions {
-  margin: -10px 50px 0;
   font-size: .8em;
+  padding: 0 50px 10px;
 }

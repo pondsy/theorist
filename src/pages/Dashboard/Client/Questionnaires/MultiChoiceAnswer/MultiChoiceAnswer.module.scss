@@ -41,7 +41,15 @@
   color: var(--color-background);
 }
 
-.disabled {
-  cursor: not-allowed !important;
-  opacity: .6;
+.footerNav {
+  margin: auto 0 0;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+  > svg {
+    height: 30px;
+    fill: var(--color-dark);
+    cursor: pointer;
+  }
 }

@@ -30,14 +30,18 @@ export const saveQuestionnaire = (uid: string, questionnaire: Questionnaire) => 
     });
 };
 
-export const deleteQuestionnaire = (uid: string, questionnaire: Questionnaire) => async (dispatch: AppDispatch) => {
-    const data = {
-        ...questionnaire,
-        practitioner: uid
-    }
-    const response = await PractitionerService.deleteQuestionnaire(data);
+export const deleteQuestionnaire = (uid: string, questionnaireId: string) => async (dispatch: AppDispatch) => {
+    const response = await PractitionerService.deleteQuestionnaire(uid, questionnaireId);
     dispatch({
         type: DELETE_QUESTIONNAIRE,
+        payload: response
+    });
+};
+
+export const removeQuestionnaireFromUsers = (uid: string, questionnaireId: string, userIds: string[]) => async (dispatch: AppDispatch) => {
+    const response = await PractitionerService.removeQuestionnaireFromUsers(uid, questionnaireId, userIds);
+    dispatch({
+        type: GET_CLIENTS,
         payload: response
     });
 };
