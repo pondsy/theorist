@@ -6,7 +6,6 @@ import ErrorMessage from "../../../../../components/ErrorMessage";
 import {ReactComponent as Back} from "../../../../../resources/svgs/back.svg";
 import {ReactComponent as Next} from "../../../../../resources/svgs/next.svg";
 import Button from "../../../../../components/Button";
-import styles from "../FreeTextAnswer/FreeTextAnswer.module.scss";
 
 
 interface Props {

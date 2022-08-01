@@ -16,7 +16,7 @@ export interface ModalProps {
     image?: boolean;
 }
 
-const images = [One,Two,Three,Four,Five];
+const images = [One, Two, Three, Four, Five];
 
 const Modal = ({open, style, image, content}: ModalProps) => {
 
@@ -26,9 +26,10 @@ const Modal = ({open, style, image, content}: ModalProps) => {
         <Motion>
             <div className={styles.backdrop}/>
             <div className={styles.wrapper} style={style}>
-                <div className={styles.modal} style={{...image ? {backgroundImage: `url(${randomImage})`} : {background: 'var(--color-primary)'}}}>
+                <div className={styles.modal}
+                     style={{...image ? {backgroundImage: `url(${randomImage})`} : {background: 'var(--color-primary)'}}}>
                     {image && <div className={styles.overlay}/>}
-                    <div className={styles.content} >{content}</div>
+                    <div className={styles.content}>{content}</div>
                 </div>
             </div>
         </Motion>

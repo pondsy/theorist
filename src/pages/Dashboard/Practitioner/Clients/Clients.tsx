@@ -115,34 +115,36 @@ const Clients = () => {
     return (
         <div className={styles.page}>
             <h2 className={styles.title}>Clients</h2>
-            {clients.length  ?
+            {clients.length ?
                 <Table columns={columns} data={data}/>
                 : <div className={sharedStyles.message}>No clients found.</div>
             }
             {assigning &&
-                <Modal open={!!assigning} style={{width: 'auto', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}} content={<React.Fragment>
-                    <h2>Available to assign</h2>
-                    {questionnaires.map((questionnaire, id) => (
-                        <label key={id} className={sharedStyles.checkboxContainer}>
-                            {questionnaire?.id &&
-                                <React.Fragment>
-                                    <input
-                                        type="checkbox"
-                                        checked={assigning?.questionnaire.includes(questionnaire.id)}
-                                        value={questionnaire.id}
-                                        onChange={(e) => handleChange(e)}
-                                        className={sharedStyles.checkbox}
-                                    />
-                                    <h4>{questionnaire.title}</h4>
-                                </React.Fragment>
-                            }
-                        </label>
-                    ))}
-                    {<div className={sharedStyles.footerButtons}>
-                        <Button text="Save" onClick={saveSelection}/>
-                        <Button text="Close" onClick={closeModal}/>
-                    </div>}
-                </React.Fragment>}/>
+                <Modal open={!!assigning}
+                       style={{width: 'auto', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}
+                       content={<React.Fragment>
+                           <h2>Available to assign</h2>
+                           {questionnaires.map((questionnaire, id) => (
+                               <label key={id} className={sharedStyles.checkboxContainer}>
+                                   {questionnaire?.id &&
+                                       <React.Fragment>
+                                           <input
+                                               type="checkbox"
+                                               checked={assigning?.questionnaire.includes(questionnaire.id)}
+                                               value={questionnaire.id}
+                                               onChange={(e) => handleChange(e)}
+                                               className={sharedStyles.checkbox}
+                                           />
+                                           <h4>{questionnaire.title}</h4>
+                                       </React.Fragment>
+                                   }
+                               </label>
+                           ))}
+                           {<div className={sharedStyles.footerButtons}>
+                               <Button text="Save" onClick={saveSelection}/>
+                               <Button text="Close" onClick={closeModal}/>
+                           </div>}
+                       </React.Fragment>}/>
             }
         </div>
     )

@@ -15,7 +15,6 @@ import {
 } from "../../../../../store/practitioner/practitionerTypes";
 import useValidation from "../../../../../hooks/useValidation";
 import ErrorMessage from "../../../../../components/ErrorMessage";
-import Divider from "../../../../../components/Divider";
 import Button from "../../../../../components/Button";
 import {v4 as uuid} from "uuid";
 
@@ -80,7 +79,8 @@ const EditQuestionnaire = ({close, fields, saveQuestionnaire}: Props) => {
         <React.Fragment>
 
             <div className={sharedStyles.labeledInput}>
-                <input placeholder="Title" className={`${sharedStyles.input} ${styles.title} ${errors?.title && sharedStyles.error}`}
+                <input placeholder="Title"
+                       className={`${sharedStyles.input} ${styles.title} ${errors?.title && sharedStyles.error}`}
                        value={questionnaire.title}
                        onChange={(e) => setQuestionnaire((prev) => ({...prev, title: e.target.value}))}/>
                 {errors?.title && <ErrorMessage error={errors?.title}/>}
