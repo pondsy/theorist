@@ -1,11 +1,11 @@
 import {createReducer, Reducer} from "@reduxjs/toolkit";
 import {
-  ASSIGN_QUESTIONNAIRE,
-  DELETE_QUESTIONNAIRE,
-  GET_CLIENT_RESPONSES,
-  GET_CLIENTS,
-  GET_PRACTITIONER_QUESTIONNAIRES,
-  SAVE_PRACTITIONER_QUESTIONNAIRE
+    ASSIGN_QUESTIONNAIRE,
+    DELETE_QUESTIONNAIRE,
+    GET_CLIENT_RESPONSES,
+    GET_CLIENTS,
+    GET_PRACTITIONER_QUESTIONNAIRES,
+    SAVE_PRACTITIONER_QUESTIONNAIRE
 } from "./practitionerConstants";
 import {PractitionerState} from "./practitionerTypes";
 import {PURGE} from "redux-persist/es/constants";

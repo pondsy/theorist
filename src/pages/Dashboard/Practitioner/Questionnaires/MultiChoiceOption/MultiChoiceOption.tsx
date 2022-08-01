@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import styles from "../EditQuestionnaire/EditQuestionnaire.module.scss";
 import {ReactComponent as Save} from "../../../../../resources/svgs/save.svg";
 import sharedStyles from "../../../../../styles/shared.module.scss";
 import {ReactComponent as Delete} from "../../../../../resources/svgs/delete.svg";
