@@ -58,6 +58,7 @@ const Questionnaires = () => {
             {create && <Modal
                 open={!!create}
                 close={() => setCreate(undefined)}
+                image
                 content={
                     <FillQuestionnaire
                         close={() => setCreate(undefined)}
