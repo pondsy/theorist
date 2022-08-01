@@ -12,7 +12,11 @@ import {useDispatch} from "react-redux";
 import {AuthState} from "../../../../store/auth/authTypes";
 import {useAppSelector} from "../../../../store/store";
 import {Questionnaire} from "../../../../store/practitioner/practitionerTypes";
-import {deleteQuestionnaire, saveQuestionnaire} from "../../../../store/practitioner/practitionerActions";
+import {
+    deleteQuestionnaire,
+    removeQuestionnaireFromUsers,
+    saveQuestionnaire
+} from "../../../../store/practitioner/practitionerActions";
 import Table from "../../../../components/Table";
 import Modal from "../../../../components/Modal";
 
@@ -23,7 +27,7 @@ export interface TableData {
     col4: number;
     col5: number;
     col6: string;
-    col7: string;
+    col7?: string;
 }
 
 const Questionnaires = () => {
@@ -39,9 +43,20 @@ const Questionnaires = () => {
     const [add, setAdd] = useState<boolean>();
     const [remove, setRemove] = useState<Questionnaire>();
 
+    const removeQuestionnaire = (id: string) => {
+        const assigned = clients.filter((client) => client.questionnaire.includes(id));
+        dispatch(deleteQuestionnaire(auth.user.uid, id));
+
+        if (assigned.length) {
+            const ids = assigned.map(client => client.id);
+            dispatch(removeQuestionnaireFromUsers(auth.user.uid, id, ids))
+        }
+    }
+
     const data = useMemo<TableData[]>(() => {
         return editQuestionnaires.map((questionnaire) => {
-            const assigned = clients.filter((client) => client.questionnaire.available.includes(questionnaire.id!)).length || 0;
+            const id = questionnaire?.id;
+            const assigned = id ? clients.filter((client) => client.questionnaire.includes(id)).length : 0;
             const filledIn = responses.filter((response) => response.questionnaireId === questionnaire.id).length || 0;
             const rate = filledIn / assigned || 0;
 
@@ -53,7 +68,7 @@ const Questionnaires = () => {
                     col4: assigned,
                     col5: filledIn,
                     col6: `${(rate * 100).toFixed(2)} %`,
-                    col7: questionnaire.id!
+                    col7: questionnaire?.id
                 }
             ]
         }).flat();
@@ -100,7 +115,7 @@ const Questionnaires = () => {
             Cell: (cell) => <div className={sharedStyles.inlineIconButtons}>
                 {remove && remove.id === cell.value ?
                     <React.Fragment>
-                        <Confirm onClick={() => dispatch(deleteQuestionnaire(auth.user.uid, remove))}/>
+                        <Confirm onClick={() => remove?.id && removeQuestionnaire(remove.id)}/>
                         <Regard onClick={() => setRemove(undefined)}/>
                     </React.Fragment> :
                     <React.Fragment>

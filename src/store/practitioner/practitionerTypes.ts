@@ -11,14 +11,9 @@ export interface Client {
     name: string;
     email: string;
     role: string;
-    questionnaire: UserQuestionnaire;
+    questionnaire: string[];
     birthdate: string;
     practitioner: string;
-}
-
-export interface UserQuestionnaire {
-    available: string[];
-    ready: string[];
 }
 
 export interface Questionnaire {

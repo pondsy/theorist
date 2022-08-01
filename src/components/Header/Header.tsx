@@ -42,7 +42,8 @@ const Header = ({paths, setActivePage}: Props) => {
             </div>
             <div className={styles.links}>
                 {paths.map((page, id) => (
-                    <div key={id} className={`${page === active ? styles.active : ''}`} onClick={() => setActive(page)}>{page}</div>
+                    <div key={id} className={`${page === active ? styles.active : ''}`}
+                         onClick={() => setActive(page)}>{page}</div>
                 ))}
                 <PowerOff onClick={logout} className={styles.logout}/>
             </div>

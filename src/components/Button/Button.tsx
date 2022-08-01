@@ -12,7 +12,16 @@ interface Props {
     disabled?: boolean;
 }
 
-const Button = ({text, color = 'var(--color-action)', hoverColor = 'var(--color-secondary)', style, padding, icon, onClick, disabled}: Props) => {
+const Button = ({
+                    text,
+                    color = 'var(--color-action)',
+                    hoverColor = 'var(--color-secondary)',
+                    style,
+                    padding,
+                    icon,
+                    onClick,
+                    disabled
+                }: Props) => {
 
     const [hovering, setHovering] = useState(false);
 

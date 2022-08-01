@@ -6,16 +6,16 @@ import Motion from "../Motion/Motion";
 export interface ModalProps {
     open: boolean;
     close?: () => void;
-    className?: string;
+    style?: React.CSSProperties;
     content: JSX.Element;
 }
 
-const Modal = ({open, className, content}: ModalProps) => {
+const Modal = ({open, style, content}: ModalProps) => {
 
     const modal = (
         <Motion>
             <div className={styles.backdrop}/>
-            <div className={`${styles.wrapper} ${className}`}>
+            <div className={styles.wrapper} style={style}>
                 <div className={styles.modal}>
                     <div className={styles.content}>{content}</div>
                 </div>

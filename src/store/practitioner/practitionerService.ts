@@ -12,8 +12,12 @@ class PractitionerService {
         return await Firebase.saveQuestionnaire(questionnaire);
     }
 
-    static async deleteQuestionnaire(questionnaire: Questionnaire): Promise<Questionnaire[]> {
-        return await Firebase.deleteQuestionnaire(questionnaire);
+    static async deleteQuestionnaire(uid: string, questionnaireId: string): Promise<Questionnaire[]> {
+        return await Firebase.deleteQuestionnaire(uid, questionnaireId);
+    }
+
+    static async removeQuestionnaireFromUsers(uid: string, questionnaireId: string, userIds: string[]): Promise<Client[]> {
+        return await Firebase.removeQuestionnaireFromUsers(uid, questionnaireId, userIds);
     }
 
     static async getClients(uid: string): Promise<Client[]> {

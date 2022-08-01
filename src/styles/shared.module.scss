@@ -1,11 +1,5 @@
 @import "./breakpoints.module";
 
-.inputWithButtons {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-}
-
 .inlineIconButtons {
   display: flex;
   justify-content: center;
@@ -25,17 +19,70 @@
 
 .checkboxContainer {
   margin: 20px 0;
-    display: flex;
-    align-content: start;
-    gap: 20px;
+  display: flex;
+  align-content: start;
+  gap: 20px;
 }
 
 .checkbox {
-  align-self: flex-start;
+  align-self: center;
 }
 
+.input {
+  background-color: transparent;
+  border-radius: 0;
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  min-width: 400px;
+  height: 30px;
+  padding: 12px;
+  font-size: 1em;
+  border-bottom: 1px solid var(--linear-right);
+
+  &:focus {
+    outline: none;
+    border-bottom: 2px solid var(--linear-left);
+  }
+}
+
+@mixin editable {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 20px;
+  font-style: italic;
+}
+
+.inputWithButtons {
+  @include editable;
+  width: 400px;
+}
+
+.textWithButtons {
+  @include editable;
+  margin: 0 20px;
+}
+
+.disabled {
+  cursor: not-allowed !important;
+  opacity: .6;
+}
+
+.textArea {
+  padding: 20px;
+  font-size: 1.2em;
+}
 
 .footerButtons {
+  margin: 30px 0 0;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: end;
+}
+
+.footerNav {
   margin: auto 0 0;
   display: flex;
   flex-direction: row;
@@ -46,4 +93,26 @@
     fill: var(--color-dark);
     cursor: pointer;
   }
+}
+
+.labeledInput {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  > h3 {
+    font-size: 1.3em;
+  }
+}
+.indent {
+  margin: 10px 20px 0;
+}
+
+.message {
+  color: var(--color-light);
+  margin: 5px 0 20px 10px;
+}
+
+.addQuestion {
+  padding: 10px 0 0;
 }

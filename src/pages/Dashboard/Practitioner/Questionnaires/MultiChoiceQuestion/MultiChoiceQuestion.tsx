@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import styles from "../EditQuestionnaire/EditQuestionnaire.module.scss";
 import {ReactComponent as Save} from "../../../../../resources/svgs/save.svg";
 import sharedStyles from "../../../../../styles/shared.module.scss";
 import {ReactComponent as Delete} from "../../../../../resources/svgs/delete.svg";
@@ -10,7 +9,7 @@ import {MultiChoice, Option} from "../../../../../store/practitioner/practitione
 import useValidation from "../../../../../hooks/useValidation";
 import ErrorMessage from "../../../../../components/ErrorMessage";
 import Button from "../../../../../components/Button";
-import { v4 as uuid } from 'uuid';
+import {v4 as uuid} from 'uuid';
 
 interface Props {
     className: string;
@@ -23,9 +22,13 @@ const MultiChoiceQuestion = ({className, values, addQuestion, removeQuestion}: P
 
     const {validateTitle, validateOptions} = useValidation();
     const [form, setForm] = useState<MultiChoice>(values);
-    const [addOption, setAddOption] = useState<Option[]>(values.options.length ? [] : [{id: uuid(), answer: '', selected: false}, {id: uuid(), answer: '', selected: false}]);
+    const [addOption, setAddOption] = useState<Option[]>(values.options.length ? [] : [{
+        id: uuid(),
+        answer: '',
+        selected: false
+    }, {id: uuid(), answer: '', selected: false}]);
     const [editOption, setEditOption] = useState<Option>();
-    const [errors, setErrors] = useState<{title?: string, options?: string}>();
+    const [errors, setErrors] = useState<{ title?: string, options?: string }>();
 
     useEffect(() => {
         if (values) setForm(values);
@@ -38,7 +41,7 @@ const MultiChoiceQuestion = ({className, values, addQuestion, removeQuestion}: P
     const addToForm = () => {
         const errors = {
             title: validateTitle(form.title),
-            options: validateOptions(form.options||[])
+            options: validateOptions(form.options || [])
         };
         setErrors(errors);
         if (errors.title || errors.options) return;
@@ -57,9 +60,10 @@ const MultiChoiceQuestion = ({className, values, addQuestion, removeQuestion}: P
 
     return (
         <div key={form.id} className={className}>
-            <label>New multi-choice question</label>
             <div className={sharedStyles.inputWithButtons}>
-                <input onKeyDown={(e) => e.key === 'Enter' && addToForm()} className={`${styles.input} ${errors?.title && sharedStyles.error}`} value={form?.title} onChange={(e)=> setForm((prev) => ({...prev, title: e.target.value}))}/>
+                <input placeholder="multi-choice question" onKeyDown={(e) => e.key === 'Enter' && addToForm()}
+                       className={`${sharedStyles.input} ${errors?.title && sharedStyles.error}`} value={form?.title}
+                       onChange={(e) => setForm((prev) => ({...prev, title: e.target.value}))}/>
                 <span className={sharedStyles.inlineIconButtons}>
                     <Save onClick={addToForm}/>
                     <Delete onClick={() => removeQuestion(form.id)}/>
@@ -68,27 +72,33 @@ const MultiChoiceQuestion = ({className, values, addQuestion, removeQuestion}: P
             {errors?.title && <ErrorMessage error={errors?.title}/>}
 
             {form.options && form.options.map((option, id) => (
-                <div key={id} className={styles.inputWithButtons}>
+                <div key={id} className={sharedStyles.textWithButtons}>
                     {editOption?.id === option.id ?
                         <MultiChoiceOption
-                            className={styles.labeledInput}
+                            className={sharedStyles.labeledInput}
                             values={option}
                             addAnswer={(answer) => setForm((prev) => {
                                 return ({
                                     ...prev,
-                                    options: prev.options?.map((o) => {
-                                        if (o.id === answer.id) {
+                                    options: prev.options?.map((option) => {
+                                        if (option.id === answer.id) {
                                             return answer
                                         }
-                                        return o;
+                                        return option;
                                     })
                                 })
                             })}
-                            removeAnswer={(id: string) => setForm((prev) => ({...prev, options: prev.options?.filter(q => q.id !== id)}))}
+                            removeAnswer={(id: string) => setForm((prev) => ({
+                                ...prev,
+                                options: prev.options?.filter(q => q.id !== id)
+                            }))}
                         /> : option.answer}
                     {editOption?.id !== option.id && <span className={sharedStyles.inlineIconButtons}>
                         <Edit onClick={() => setEditOption(option)}/>
-                        <Delete onClick={() => setForm((prev) => ({...prev, options: prev.options?.filter(q => q.id !== option.id)}))}/>
+                        <Delete onClick={() => setForm((prev) => ({
+                            ...prev,
+                            options: prev.options?.filter(q => q.id !== option.id)
+                        }))}/>
                     </span>}
                 </div>
             ))}
@@ -98,7 +108,7 @@ const MultiChoiceQuestion = ({className, values, addQuestion, removeQuestion}: P
             {addOption && addOption.map((option, index) => {
                 return (<MultiChoiceOption
                     key={index}
-                    className={`${styles.labeledInput} ${styles.indent}`}
+                    className={`${sharedStyles.labeledInput} ${sharedStyles.indent}`}
                     values={option}
                     addAnswer={(answer) => {
                         setForm((prev) => ({...prev, options: prev.options?.concat(answer)}))
@@ -113,7 +123,8 @@ const MultiChoiceQuestion = ({className, values, addQuestion, removeQuestion}: P
                 />)
             })}
 
-            <Button icon={<Add/>} color='none' hoverColor="none" padding="5px 20px" text="option" onClick={() => setAddOption((prev) => prev.concat({id: uuid(), answer: '', selected: false}))}/>
+            <Button icon={<Add/>} color='none' hoverColor="none" padding="10px 20px 0px" text="option"
+                    onClick={() => setAddOption((prev) => prev.concat({id: uuid(), answer: '', selected: false}))}/>
         </div>
     )
 }

@@ -1,6 +1,6 @@
 import styles from './Table.module.scss';
 import React from 'react'
-import {useSortBy, useTable, Column} from "react-table";
+import {Column, useSortBy, useTable} from "react-table";
 
 interface TableProps {
     columns: Column<any>[];
@@ -25,7 +25,7 @@ function Table({columns, data}: TableProps): JSX.Element {
                     <tr {...headerGroup.getHeaderGroupProps()}>
                         {headerGroup.headers.map((column) => {
                             return (
-                                <th className={styles.row} {...column.getHeaderProps( column.getSortByToggleProps())}>
+                                <th className={styles.row} {...column.getHeaderProps(column.getSortByToggleProps())}>
                                     {column.render("Header")}
                                     <span>
                                     {column.isSorted
@@ -46,7 +46,8 @@ function Table({columns, data}: TableProps): JSX.Element {
                         <tr id={`row-${rowIndex}`} className={styles.item} {...row.getRowProps()}>
                             {row.cells.map((cell, cellIndex) => {
                                 return (
-                                    <td id={`row-${rowIndex}-cell-${cellIndex}`} className={styles.row} {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                                    <td id={`row-${rowIndex}-cell-${cellIndex}`}
+                                        className={styles.row} {...cell.getCellProps()}>{cell.render("Cell")}</td>
                                 );
                             })}
                         </tr>

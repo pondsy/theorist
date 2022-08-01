@@ -46,6 +46,7 @@
     top: 0;
     background: radial-gradient(circle at 0 100%, transparent 25px, var(--color-primary) 21px);
   }
+
   &::after {
     content: "";
     position: absolute;
@@ -54,15 +55,10 @@
     right: -25px;
     top: 0;
     background: #000;
-    background:radial-gradient(circle at 100% 100%, transparent 25px, var(--color-primary) 21px);
+    background: radial-gradient(circle at 100% 100%, transparent 25px, var(--color-primary) 21px);
   }
 }
 
 .modal {
-  width: 700px;
-  position: fixed;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%, -20%);
-  text-align: center;
+  width: 700px !important;
 }

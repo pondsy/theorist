@@ -1,5 +1,5 @@
-import { motion } from "framer-motion"
-import { ReactNode } from "react";
+import {motion} from "framer-motion"
+import {ReactNode} from "react";
 
 interface Props {
     duration?: number;
@@ -8,7 +8,7 @@ interface Props {
     children: ReactNode;
 }
 
-const Motion = ({duration = 0.2, ease = "easeIn", className,  children}: Props): JSX.Element => {
+const Motion = ({duration = 0.2, ease = "easeIn", className, children}: Props): JSX.Element => {
     return (
         <motion.div
             initial={{opacity: 0}}

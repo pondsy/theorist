@@ -21,8 +21,8 @@ const ClientDashboard = () => {
 
 
     useEffect(() => {
-        if (auth.data.questionnaire?.available.length) {
-            dispatch(getQuestionnaires(auth.data.questionnaire?.available, auth.user.uid));
+        if (auth.data.questionnaire?.length) {
+            dispatch(getQuestionnaires(auth.data.questionnaire, auth.user.uid));
         }
 
         dispatch(getClientResponses(auth.user.uid))

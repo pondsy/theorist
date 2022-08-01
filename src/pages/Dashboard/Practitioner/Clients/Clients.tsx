@@ -33,15 +33,13 @@ const Clients = () => {
 
     const data = useMemo<TableData[]>(() => {
         return clients.map((client) => {
-
             const ready = responses.filter((response) => response.clientId === client.id).length || 0;
-
             return [
                 {
                     col1: client.name,
                     col2: client.email,
                     col3: client.birthdate,
-                    col4: client.questionnaire.available,
+                    col4: client.questionnaire,
                     col5: ready,
                     col6: client
                 }
@@ -104,14 +102,11 @@ const Clients = () => {
         if (!assigning) return;
         const current = {
             ...assigning,
-            questionnaire: {
-                ...assigning.questionnaire,
-                available: [
-                    ...e.target.checked ?
-                        assigning.questionnaire.available.concat(e.target.value) :
-                        assigning.questionnaire.available.filter((id) => id !== e.target.value)
-                ],
-            }
+            questionnaire: [
+                ...e.target.checked ?
+                    assigning.questionnaire.concat(e.target.value) :
+                    assigning.questionnaire.filter((id) => id !== e.target.value)
+            ]
         };
 
         setAssigning(current)
@@ -120,23 +115,30 @@ const Clients = () => {
     return (
         <div className={styles.page}>
             <h2 className={styles.title}>Clients</h2>
-            <Table columns={columns} data={data}/>
+            {clients.length  ?
+                <Table columns={columns} data={data}/>
+                : <div className={sharedStyles.message}>No clients found.</div>
+            }
             {assigning &&
-                <Modal open={!!assigning} className={styles.modal} content={<React.Fragment>
+                <Modal open={!!assigning} style={{width: 'auto', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}} content={<React.Fragment>
                     <h2>Available to assign</h2>
                     {questionnaires.map((questionnaire, id) => (
                         <label key={id} className={sharedStyles.checkboxContainer}>
-                            <input
-                                type="checkbox"
-                                checked={assigning?.questionnaire.available.includes(questionnaire.id!)}
-                                value={questionnaire.id!}
-                                onChange={(e) => handleChange(e)}
-                                className={sharedStyles.checkbox}
-                            />
-                            <h4>{questionnaire.title}</h4>
+                            {questionnaire?.id &&
+                                <React.Fragment>
+                                    <input
+                                        type="checkbox"
+                                        checked={assigning?.questionnaire.includes(questionnaire.id)}
+                                        value={questionnaire.id}
+                                        onChange={(e) => handleChange(e)}
+                                        className={sharedStyles.checkbox}
+                                    />
+                                    <h4>{questionnaire.title}</h4>
+                                </React.Fragment>
+                            }
                         </label>
                     ))}
-                    {<div className={styles.footerButtons}>
+                    {<div className={sharedStyles.footerButtons}>
                         <Button text="Save" onClick={saveSelection}/>
                         <Button text="Close" onClick={closeModal}/>
                     </div>}
